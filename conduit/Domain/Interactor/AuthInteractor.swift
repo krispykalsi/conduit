@@ -6,8 +6,8 @@
 //
 
 protocol AuthInteractor {
-    func login(withEmail user: LoginViaEmailParams) async -> Result<Void, Error>
-    func register(withEmail user: RegisterViaEmailParams) async -> Result<Void, Error>
+    func login(withEmail user: LoginViaEmailParams) async -> Result<User, Error>
+    func register(withEmail user: RegisterViaEmailParams) async -> Result<User, Error>
 }
 
 struct LoginViaEmailParams: Codable {

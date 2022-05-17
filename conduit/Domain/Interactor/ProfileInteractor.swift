@@ -7,10 +7,10 @@
 
 protocol ProfileInteractor {
     func fetchCurrentUser() async -> Result<User, Error>
-    func updateUser(with params: UpdateUserParams) async -> Result<Void, Error>
+    func updateUser(with params: UpdateUserParams) async -> Result<User, Error>
     func fetchProfile(with username: String) async -> Result<Profile, Error>
-    func followProfile(with username: String) async -> Result<Void, Error>
-    func unfollowProfile(with username: String) async -> Result<Void, Error>
+    func followProfile(with username: String) async -> Result<Profile, Error>
+    func unfollowProfile(with username: String) async -> Result<Profile, Error>
 }
 
 struct UpdateUserParams: Codable {
