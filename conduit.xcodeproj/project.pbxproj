@@ -14,7 +14,6 @@
 		0834D9B828345293001CB156 /* ArticleInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0834D9B728345293001CB156 /* ArticleInteractor.swift */; };
 		0834D9BA28345E9C001CB156 /* ProfileRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0834D9B928345E9C001CB156 /* ProfileRepository.swift */; };
 		0834D9BE28346481001CB156 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0834D9BD28346481001CB156 /* DataSource.swift */; };
-		0834D9C028346FE7001CB156 /* ResultUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0834D9BF28346FE7001CB156 /* ResultUtils.swift */; };
 		0834D9C2283470EC001CB156 /* AuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0834D9C1283470EC001CB156 /* AuthRepository.swift */; };
 		0834D9C428347186001CB156 /* ArticleRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0834D9C328347186001CB156 /* ArticleRepository.swift */; };
 		0834D9C628347421001CB156 /* ConduitApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0834D9C528347421001CB156 /* ConduitApiClient.swift */; };
@@ -64,7 +63,6 @@
 		0834D9B728345293001CB156 /* ArticleInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleInteractor.swift; sourceTree = "<group>"; };
 		0834D9B928345E9C001CB156 /* ProfileRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRepository.swift; sourceTree = "<group>"; };
 		0834D9BD28346481001CB156 /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
-		0834D9BF28346FE7001CB156 /* ResultUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultUtils.swift; sourceTree = "<group>"; };
 		0834D9C1283470EC001CB156 /* AuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
 		0834D9C328347186001CB156 /* ArticleRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleRepository.swift; sourceTree = "<group>"; };
 		0834D9C528347421001CB156 /* ConduitApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConduitApiClient.swift; sourceTree = "<group>"; };
@@ -157,7 +155,6 @@
 		0834D9CD28348CE4001CB156 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				0834D9BF28346FE7001CB156 /* ResultUtils.swift */,
 				0834D9CE28348D13001CB156 /* CodableExtensions.swift */,
 				0834D9D02834BE39001CB156 /* NetworkExtensions.swift */,
 			);
@@ -454,7 +451,6 @@
 				0840F895283436B2009210E5 /* AppDelegate.swift in Sources */,
 				0834D9D12834BE39001CB156 /* NetworkExtensions.swift in Sources */,
 				0840F8D328344034009210E5 /* Profile.swift in Sources */,
-				0834D9C028346FE7001CB156 /* ResultUtils.swift in Sources */,
 				0840F8D728344FC9009210E5 /* AuthInteractor.swift in Sources */,
 				0834D9C2283470EC001CB156 /* AuthRepository.swift in Sources */,
 				0840F897283436B2009210E5 /* SceneDelegate.swift in Sources */,

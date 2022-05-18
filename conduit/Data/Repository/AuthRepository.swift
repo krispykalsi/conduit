@@ -13,14 +13,10 @@ final class AuthRepository: AuthInteractor {
     private let remoteDataSource: DataSource
     
     func login(withEmail params: LoginViaEmailParams) async -> Result<User, Error> {
-        return await executeAndCatch({
-            return try await remoteDataSource.login(withEmail: params)
-        })
+        await Task { try await remoteDataSource.login(withEmail: params) }.result
     }
     
     func register(withEmail params: RegisterViaEmailParams) async -> Result<User, Error> {
-        return await executeAndCatch({
-            return try await remoteDataSource.register(withEmail: params)
-        })
+        await Task { try await remoteDataSource.register(withEmail: params) }.result
     }
 }

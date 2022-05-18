@@ -13,32 +13,22 @@ final class ProfileRepository: ProfileInteractor {
     private let remoteDataSource: DataSource
     
     func fetchCurrentUser() async -> Result<User, Error> {
-        return await executeAndCatch {
-            return try await remoteDataSource.fetchCurrentUser()
-        }
+        await Task { try await remoteDataSource.fetchCurrentUser() }.result
     }
     
     func updateUser(with params: UpdateUserParams) async -> Result<User, Error> {
-        return await executeAndCatch {
-            return try await remoteDataSource.updateUser(with: params)
-        }
+        await Task { try await remoteDataSource.updateUser(with: params) }.result
     }
     
     func fetchProfile(with username: String) async -> Result<Profile, Error> {
-        return await executeAndCatch({
-            return try await remoteDataSource.fetchProfile(with: username)
-        })
+        await Task { try await remoteDataSource.fetchProfile(with: username) }.result
     }
     
     func followProfile(with username: String) async -> Result<Profile, Error> {
-        return await executeAndCatch({
-            return try await remoteDataSource.followProfile(with: username)
-        })
+        await Task { try await remoteDataSource.followProfile(with: username) }.result
     }
     
     func unfollowProfile(with username: String) async -> Result<Profile, Error> {
-        return await executeAndCatch({
-            return try await remoteDataSource.unfollowProfile(with: username)
-        })
+        await Task { try await remoteDataSource.unfollowProfile(with: username) }.result
     }
 }
