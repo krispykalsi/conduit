@@ -166,12 +166,7 @@
 				0840F8C828343B3E009210E5 /* Presentation */,
 				0840F8C728343B2D009210E5 /* Data */,
 				0840F8C428343A0D009210E5 /* Domain */,
-				0840F894283436B2009210E5 /* AppDelegate.swift */,
-				0840F896283436B2009210E5 /* SceneDelegate.swift */,
-				0840F898283436B2009210E5 /* ViewController.swift */,
-				0840F89A283436B2009210E5 /* Main.storyboard */,
 				0840F89D283436B5009210E5 /* Assets.xcassets */,
-				0840F89F283436B5009210E5 /* LaunchScreen.storyboard */,
 				0840F8A2283436B5009210E5 /* Info.plist */,
 			);
 			path = conduit;
@@ -236,8 +231,10 @@
 		0840F8C828343B3E009210E5 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				0840F8CB28343BC5009210E5 /* View */,
 				0840F8CA28343B91009210E5 /* Presenter */,
+				0840F8CB28343BC5009210E5 /* View */,
+				0840F894283436B2009210E5 /* AppDelegate.swift */,
+				0840F896283436B2009210E5 /* SceneDelegate.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -262,6 +259,9 @@
 		0840F8CB28343BC5009210E5 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				0840F898283436B2009210E5 /* ViewController.swift */,
+				0840F89A283436B2009210E5 /* Main.storyboard */,
+				0840F89F283436B5009210E5 /* LaunchScreen.storyboard */,
 			);
 			path = View;
 			sourceTree = "<group>";
