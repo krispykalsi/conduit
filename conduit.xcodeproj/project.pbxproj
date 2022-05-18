@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0834845628355E0000296543 /* Heebo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0834845528355E0000296543 /* Heebo.ttf */; };
+		0834845B2835776700296543 /* UIMaterialChip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083484592835776700296543 /* UIMaterialChip.swift */; };
+		0834845C2835776700296543 /* UIMaterialChip.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0834845A2835776700296543 /* UIMaterialChip.xib */; };
+		0834846028357E0A00296543 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0834845F28357E0A00296543 /* HomeViewController.swift */; };
 		0834D9B828345293001CB156 /* ArticleInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0834D9B728345293001CB156 /* ArticleInteractor.swift */; };
 		0834D9BA28345E9C001CB156 /* ProfileRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0834D9B928345E9C001CB156 /* ProfileRepository.swift */; };
 		0834D9BE28346481001CB156 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0834D9BD28346481001CB156 /* DataSource.swift */; };
@@ -20,7 +24,6 @@
 		0834D9D32834C4D3001CB156 /* Responses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0834D9D22834C4D3001CB156 /* Responses.swift */; };
 		0840F895283436B2009210E5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0840F894283436B2009210E5 /* AppDelegate.swift */; };
 		0840F897283436B2009210E5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0840F896283436B2009210E5 /* SceneDelegate.swift */; };
-		0840F899283436B2009210E5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0840F898283436B2009210E5 /* ViewController.swift */; };
 		0840F89C283436B2009210E5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0840F89A283436B2009210E5 /* Main.storyboard */; };
 		0840F89E283436B5009210E5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0840F89D283436B5009210E5 /* Assets.xcassets */; };
 		0840F8A1283436B5009210E5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0840F89F283436B5009210E5 /* LaunchScreen.storyboard */; };
@@ -33,6 +36,7 @@
 		0840F8D328344034009210E5 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0840F8D228344034009210E5 /* Profile.swift */; };
 		0840F8D528344787009210E5 /* ProfileInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0840F8D428344787009210E5 /* ProfileInteractor.swift */; };
 		0840F8D728344FC9009210E5 /* AuthInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0840F8D628344FC9009210E5 /* AuthInteractor.swift */; };
+		0876DEF92835948900F8A4D8 /* HomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0876DEF82835948900F8A4D8 /* HomePresenter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +57,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0834845528355E0000296543 /* Heebo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Heebo.ttf; sourceTree = "<group>"; };
+		083484592835776700296543 /* UIMaterialChip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIMaterialChip.swift; sourceTree = "<group>"; };
+		0834845A2835776700296543 /* UIMaterialChip.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UIMaterialChip.xib; sourceTree = "<group>"; };
+		0834845F28357E0A00296543 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		0834D9B728345293001CB156 /* ArticleInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleInteractor.swift; sourceTree = "<group>"; };
 		0834D9B928345E9C001CB156 /* ProfileRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRepository.swift; sourceTree = "<group>"; };
 		0834D9BD28346481001CB156 /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
@@ -67,7 +75,6 @@
 		0840F891283436B2009210E5 /* conduit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = conduit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0840F894283436B2009210E5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0840F896283436B2009210E5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		0840F898283436B2009210E5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		0840F89B283436B2009210E5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0840F89D283436B5009210E5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0840F8A0283436B5009210E5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -83,6 +90,7 @@
 		0840F8D228344034009210E5 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		0840F8D428344787009210E5 /* ProfileInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInteractor.swift; sourceTree = "<group>"; };
 		0840F8D628344FC9009210E5 /* AuthInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthInteractor.swift; sourceTree = "<group>"; };
+		0876DEF82835948900F8A4D8 /* HomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePresenter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +118,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0834845428355DC800296543 /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				0834845528355E0000296543 /* Heebo.ttf */,
+			);
+			path = Font;
+			sourceTree = "<group>";
+		};
+		0834845D28357D7100296543 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				083484592835776700296543 /* UIMaterialChip.swift */,
+				0834845A2835776700296543 /* UIMaterialChip.xib */,
+			);
+			path = Component;
+			sourceTree = "<group>";
+		};
 		0834D9BB28345ECD001CB156 /* Source */ = {
 			isa = PBXGroup;
 			children = (
@@ -167,6 +192,7 @@
 				0840F8C728343B2D009210E5 /* Data */,
 				0840F8C428343A0D009210E5 /* Domain */,
 				0840F89D283436B5009210E5 /* Assets.xcassets */,
+				0834845428355DC800296543 /* Font */,
 				0840F8A2283436B5009210E5 /* Info.plist */,
 			);
 			path = conduit;
@@ -231,10 +257,11 @@
 		0840F8C828343B3E009210E5 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				0840F8CA28343B91009210E5 /* Presenter */,
-				0840F8CB28343BC5009210E5 /* View */,
 				0840F894283436B2009210E5 /* AppDelegate.swift */,
 				0840F896283436B2009210E5 /* SceneDelegate.swift */,
+				0840F8CA28343B91009210E5 /* Presenter */,
+				0876DEF62835928A00F8A4D8 /* Controller */,
+				0840F8CB28343BC5009210E5 /* View */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -252,6 +279,7 @@
 		0840F8CA28343B91009210E5 /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
+				0876DEF82835948900F8A4D8 /* HomePresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -259,11 +287,19 @@
 		0840F8CB28343BC5009210E5 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				0840F898283436B2009210E5 /* ViewController.swift */,
+				0834845D28357D7100296543 /* Component */,
 				0840F89A283436B2009210E5 /* Main.storyboard */,
 				0840F89F283436B5009210E5 /* LaunchScreen.storyboard */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		0876DEF62835928A00F8A4D8 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				0834845F28357E0A00296543 /* HomeViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -374,6 +410,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0834845628355E0000296543 /* Heebo.ttf in Resources */,
+				0834845C2835776700296543 /* UIMaterialChip.xib in Resources */,
 				0840F8A1283436B5009210E5 /* LaunchScreen.storyboard in Resources */,
 				0840F89E283436B5009210E5 /* Assets.xcassets in Resources */,
 				0840F89C283436B2009210E5 /* Main.storyboard in Resources */,
@@ -406,11 +444,12 @@
 				0840F8CD2834400A009210E5 /* User.swift in Sources */,
 				0840F8D528344787009210E5 /* ProfileInteractor.swift in Sources */,
 				0834D9BA28345E9C001CB156 /* ProfileRepository.swift in Sources */,
+				0834846028357E0A00296543 /* HomeViewController.swift in Sources */,
 				0840F8CF28344016009210E5 /* Article.swift in Sources */,
 				0834D9C428347186001CB156 /* ArticleRepository.swift in Sources */,
 				0834D9BE28346481001CB156 /* DataSource.swift in Sources */,
+				0834845B2835776700296543 /* UIMaterialChip.swift in Sources */,
 				0834D9B828345293001CB156 /* ArticleInteractor.swift in Sources */,
-				0840F899283436B2009210E5 /* ViewController.swift in Sources */,
 				0834D9CC28348440001CB156 /* Requests.swift in Sources */,
 				0840F895283436B2009210E5 /* AppDelegate.swift in Sources */,
 				0834D9D12834BE39001CB156 /* NetworkExtensions.swift in Sources */,
@@ -421,6 +460,7 @@
 				0840F897283436B2009210E5 /* SceneDelegate.swift in Sources */,
 				0840F8D128344020009210E5 /* Comment.swift in Sources */,
 				0834D9CF28348D13001CB156 /* CodableExtensions.swift in Sources */,
+				0876DEF92835948900F8A4D8 /* HomePresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
