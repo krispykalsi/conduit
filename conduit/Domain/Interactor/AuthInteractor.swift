@@ -6,16 +6,16 @@
 //
 
 protocol AuthInteractor {
-    func login(withEmail user: LoginViaEmailParams) async -> Result<User, Error>
-    func register(withEmail user: RegisterViaEmailParams) async -> Result<User, Error>
+    func login(withEmail params: LoginViaEmailParams) async -> Result<User, Error>
+    func register(withEmail params: RegisterViaEmailParams) async -> Result<User, Error>
 }
 
-struct LoginViaEmailParams: Codable {
+struct LoginViaEmailParams: Encodable {
     let email: String
     let password: String
 }
 
-struct RegisterViaEmailParams: Codable {
+struct RegisterViaEmailParams: Encodable {
     let username: String
     let email: String
     let password: String

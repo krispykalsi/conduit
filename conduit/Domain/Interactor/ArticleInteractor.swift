@@ -13,12 +13,12 @@ protocol ArticleInteractor {
     // MARK: ARTICLE
     func createArticle(withParams params: CreateArticleParams) async -> Result<Article, Error>
     func fetchArticle(viaSlug slug: String) async -> Result<Article, Error>
-    func updateArticle(withParams params: UpdateArticleParams) async -> Result<Article, Error>
+    func updateArticle(viaSlug slug: String, withParams params: UpdateArticleParams) async -> Result<Article, Error>
     func deleteArticle(viaSlug slug: String) async -> Result<Void, Error>
     
     // MARK: COMMENTS
     func fetchComments(ofArticleWithSlug slug: String) async -> Result<[Comment], Error>
-    func createComment(onArticleWithSlug slug: String) async -> Result<Comment, Error>
+    func createComment(onArticleWithSlug slug: String, body: String) async -> Result<Comment, Error>
     func deleteComment(withId id: Int, onArticleWithSlug slug: String) async -> Result<Void, Error>
     
     // MARK: FAVORITE
@@ -51,7 +51,6 @@ struct CreateArticleParams: Codable {
 }
 
 struct UpdateArticleParams: Codable {
-    let slug: String
     let title: String?
     let description: String?
     let body: String?
