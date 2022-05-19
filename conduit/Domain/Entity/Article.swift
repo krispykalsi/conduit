@@ -6,14 +6,14 @@
 //
 
 struct Article: Codable {
-    let slug: String
-    let title: String
-    let description: String
-    let body: String
-    let tagList: [String]
-    let createdAt: String
-    let updatedAt: String
-    let favorited: Bool
-    let favoritesCount: Int
-    let author: Profile
+    var slug: String
+    var title: String
+    var description: String
+    var body: String
+    var tagList: [String]
+    var createdAt: String
+    var updatedAt: String
+    var favorited: Bool
+    var favoritesCount: Int
+    var author: Profile
 }

@@ -14,9 +14,9 @@ protocol ProfileInteractor {
 }
 
 struct UpdateUserParams: Codable {
-    let email: String?
-    let token: String?
-    let username: String?
-    let bio: String?
-    let image: String?
+    var email: String?
+    var token: String?
+    var username: String?
+    var bio: String?
+    var image: String?
 }

@@ -6,8 +6,8 @@
 //
 
 struct Profile: Codable {
-    let username: String
-    let bio: String
-    let image: String
-    let following: Bool
+    var username: String
+    var bio: String
+    var image: String
+    var following: Bool
 }

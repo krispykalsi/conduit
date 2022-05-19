@@ -6,9 +6,9 @@
 //
 
 struct Comment: Codable {
-    let id: String
-    let createdAt: String
-    let updatedAt: String
-    let body: String
-    let author: Profile
+    var id: String
+    var createdAt: String
+    var updatedAt: String
+    var body: String
+    var author: Profile
 }

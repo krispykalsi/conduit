@@ -11,12 +11,12 @@ protocol AuthInteractor {
 }
 
 struct LoginViaEmailParams: Encodable {
-    let email: String
-    let password: String
+    var email: String
+    var password: String
 }
 
 struct RegisterViaEmailParams: Encodable {
-    let username: String
-    let email: String
-    let password: String
+    var username: String
+    var email: String
+    var password: String
 }

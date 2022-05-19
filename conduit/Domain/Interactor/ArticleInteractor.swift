@@ -31,27 +31,27 @@ protocol ArticleInteractor {
 
 // MARK: -
 struct UserFeedParams: Codable {
-    let limit: Int?
-    let offset: Int?
+    var limit: Int?
+    var offset: Int?
 }
 
 struct GlobalFeedParams: Codable {
-    let limit: Int?
-    let offset: Int?
-    let author: String?
-    let favorited: String?
-    let tag: String?
+    var limit: Int?
+    var offset: Int?
+    var author: String?
+    var favorited: String?
+    var tag: String?
 }
 
 struct CreateArticleParams: Codable {
-    let title: String
-    let description: String
-    let body: String
-    let tagList: [String]?
+    var title: String
+    var description: String
+    var body: String
+    var tagList: [String]?
 }
 
 struct UpdateArticleParams: Codable {
-    let title: String?
-    let description: String?
-    let body: String?
+    var title: String?
+    var description: String?
+    var body: String?
 }
