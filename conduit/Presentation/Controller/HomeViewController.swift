@@ -109,11 +109,9 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         let article = presenter.articles[indexPath.row]
         cell.authorLabel.text = article.author.username
         cell.titleLabel.text = article.title
-        cell.dateCreatedLabel.text = article.createdAt
+        cell.dateCreatedLabel.text = DateFormatter.localizedString(from: article.createdAt,
+                                                                   dateStyle: .medium,
+                                                                   timeStyle: .short)
         return cell
     }
-    
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return 150.0
-//    }
 }

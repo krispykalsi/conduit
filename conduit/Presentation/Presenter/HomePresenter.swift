@@ -26,7 +26,13 @@ final class HomePresenter {
         } else {
             urlSession = URLSession.shared
         }
-        let api = ConduitApiClient(urlSession: urlSession)
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = JSONDecoder.DateDecodingStrategy.formatted(formatter)
+        let api = ConduitApiClient(urlSession: urlSession,
+                                   jsonEncoder: JSONEncoder(),
+                                   jsonDecoder: decoder)
         let interactor = ArticleRepository(dataSource: api)
         return HomePresenter(articleInteractor: interactor)
     }()
@@ -56,7 +62,7 @@ final class HomePresenter {
             }
             
             switch(await articlesResult) {
-            case .success(let newArticles): debugPrint(newArticles)
+            case .success(let newArticles):
                 articles = newArticles
                 eventDelegate?.homeEvent(onArticlesStateChange: .loaded(newArticles))
             case .failure(let error): debugPrint(error)
