@@ -72,17 +72,27 @@
                                 </collectionViewFlowLayout>
                                 <cells/>
                             </collectionView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="IPf-7q-QeP">
+                                <rect key="frame" x="8" y="223.5" width="398" height="589.5"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <sections/>
+                            </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="iDt-4U-9UF"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="54I-Ar-UBa" firstAttribute="top" secondItem="iDt-4U-9UF" secondAttribute="top" constant="12" id="3Uq-cd-NFO"/>
+                            <constraint firstItem="IPf-7q-QeP" firstAttribute="leading" secondItem="iDt-4U-9UF" secondAttribute="leading" constant="8" id="8cv-SD-OYu"/>
+                            <constraint firstItem="iDt-4U-9UF" firstAttribute="trailing" secondItem="IPf-7q-QeP" secondAttribute="trailing" constant="8" id="BLK-oT-onb"/>
+                            <constraint firstItem="iDt-4U-9UF" firstAttribute="bottom" secondItem="IPf-7q-QeP" secondAttribute="bottom" id="DZ4-II-jka"/>
                             <constraint firstItem="54I-Ar-UBa" firstAttribute="leading" secondItem="iDt-4U-9UF" secondAttribute="leading" id="JUI-M8-o0T"/>
+                            <constraint firstItem="IPf-7q-QeP" firstAttribute="top" secondItem="54I-Ar-UBa" secondAttribute="bottom" id="hnf-A1-FWP"/>
                             <constraint firstItem="54I-Ar-UBa" firstAttribute="trailing" secondItem="iDt-4U-9UF" secondAttribute="trailing" id="wZ0-rx-upr"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Home" id="Y7b-SD-rCM"/>
                     <connections>
+                        <outlet property="articleTableView" destination="IPf-7q-QeP" id="qUc-Ic-f7S"/>
                         <outlet property="tagCollectionView" destination="54I-Ar-UBa" id="bdy-W5-4YA"/>
                     </connections>
                 </viewController>

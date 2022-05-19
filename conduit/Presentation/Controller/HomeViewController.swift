@@ -8,39 +8,53 @@
 import UIKit
 
 class HomeViewController: UIViewController {
-    
     @IBOutlet weak var tagCollectionView: UICollectionView!
+    @IBOutlet weak var articleTableView: UITableView!
     
-    private let tags = ["lmao", "ded", "ooomphless"]
+    private let presenter = HomePresenter.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupTagCollection()
+        setupTagCollectionView()
+        setupArticleTableView()
+        setupHomePresenter()
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
-}
-
-extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-    
-    private func setupTagCollection() {
+    private func setupTagCollectionView() {
         tagCollectionView.delegate = self
         tagCollectionView.dataSource = self
         tagCollectionView.register(UINib(nibName: "UIMaterialChip", bundle: nil),
                                    forCellWithReuseIdentifier: UIMaterialChip.reuseIdentifier)
     }
     
+    private func setupArticleTableView() {
+        articleTableView.delegate = self
+        articleTableView.dataSource = self
+        articleTableView.register(UINib(nibName: "ArticleTableViewCell", bundle: nil),
+                                  forCellReuseIdentifier: ArticleTableViewCell.reuseIdentifier)
+    }
+    
+    private func setupHomePresenter() {
+        presenter.eventDelegate = self
+        presenter.loadDataForHomeView()
+    }
+    
+    /*
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
+}
+
+extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return tags.count
+        return presenter.tags.count
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -50,12 +64,56 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let chip = collectionView.dequeueReusableCell(withReuseIdentifier: UIMaterialChip.reuseIdentifier,
                                                       for: indexPath) as! UIMaterialChip
-        chip.label.text = tags[indexPath.row]
+        chip.label.text = presenter.tags[indexPath.row]
         return chip
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let labelWidth = tags[indexPath.row].size(withAttributes: [.font: UIMaterialChip.labelFont]).width
+        let labelWidth = presenter.tags[indexPath.row].size(withAttributes: [.font: UIMaterialChip.labelFont]).width
         return CGSize(width: labelWidth + 40, height: 40)
     }
+}
+
+extension HomeViewController: HomeEventDelegate {
+    func homeEvent(onTagsStateChange state: DataState<[String]>) {
+        switch(state) {
+        case .error(_): debugPrint("couldn't load tags")
+        case .loaded(_):
+            DispatchQueue.main.async {
+                self.tagCollectionView.reloadData()
+            }
+        case .loading: debugPrint("loading tags")
+        }
+    }
+    
+    func homeEvent(onArticlesStateChange state: DataState<[Article]>) {
+        switch(state) {
+        case .error(_): debugPrint("couldn't load articles")
+        case .loaded(_):
+            DispatchQueue.main.async {
+                self.articleTableView.reloadData()
+            }
+        case .loading: debugPrint("loading articles")
+        }
+    }
+}
+
+extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return presenter.articles.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: ArticleTableViewCell.reuseIdentifier,
+                                                 for: indexPath) as! ArticleTableViewCell
+        let article = presenter.articles[indexPath.row]
+        cell.authorLabel.text = article.author.username
+        cell.titleLabel.text = article.title
+        cell.dateCreatedLabel.text = article.createdAt
+        return cell
+    }
+    
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return 150.0
+//    }
 }

@@ -21,6 +21,9 @@
 		0834D9CF28348D13001CB156 /* CodableExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0834D9CE28348D13001CB156 /* CodableExtensions.swift */; };
 		0834D9D12834BE39001CB156 /* NetworkExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0834D9D02834BE39001CB156 /* NetworkExtensions.swift */; };
 		0834D9D32834C4D3001CB156 /* Responses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0834D9D22834C4D3001CB156 /* Responses.swift */; };
+		08378B29283638B90095FD88 /* HomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08378B28283638B90095FD88 /* HomePresenter.swift */; };
+		08378B2C283656D70095FD88 /* ArticleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08378B2A283656D70095FD88 /* ArticleTableViewCell.swift */; };
+		08378B2D283656D70095FD88 /* ArticleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08378B2B283656D70095FD88 /* ArticleTableViewCell.xib */; };
 		0840F895283436B2009210E5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0840F894283436B2009210E5 /* AppDelegate.swift */; };
 		0840F897283436B2009210E5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0840F896283436B2009210E5 /* SceneDelegate.swift */; };
 		0840F89C283436B2009210E5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0840F89A283436B2009210E5 /* Main.storyboard */; };
@@ -35,7 +38,7 @@
 		0840F8D328344034009210E5 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0840F8D228344034009210E5 /* Profile.swift */; };
 		0840F8D528344787009210E5 /* ProfileInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0840F8D428344787009210E5 /* ProfileInteractor.swift */; };
 		0840F8D728344FC9009210E5 /* AuthInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0840F8D628344FC9009210E5 /* AuthInteractor.swift */; };
-		0876DEF92835948900F8A4D8 /* HomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0876DEF82835948900F8A4D8 /* HomePresenter.swift */; };
+		0876DEFB28361C0300F8A4D8 /* DataState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0876DEFA28361C0300F8A4D8 /* DataState.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +73,9 @@
 		0834D9CE28348D13001CB156 /* CodableExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableExtensions.swift; sourceTree = "<group>"; };
 		0834D9D02834BE39001CB156 /* NetworkExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkExtensions.swift; sourceTree = "<group>"; };
 		0834D9D22834C4D3001CB156 /* Responses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Responses.swift; sourceTree = "<group>"; };
+		08378B28283638B90095FD88 /* HomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePresenter.swift; sourceTree = "<group>"; };
+		08378B2A283656D70095FD88 /* ArticleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleTableViewCell.swift; sourceTree = "<group>"; };
+		08378B2B283656D70095FD88 /* ArticleTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ArticleTableViewCell.xib; sourceTree = "<group>"; };
 		0840F891283436B2009210E5 /* conduit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = conduit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0840F894283436B2009210E5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0840F896283436B2009210E5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -88,7 +94,7 @@
 		0840F8D228344034009210E5 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		0840F8D428344787009210E5 /* ProfileInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInteractor.swift; sourceTree = "<group>"; };
 		0840F8D628344FC9009210E5 /* AuthInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthInteractor.swift; sourceTree = "<group>"; };
-		0876DEF82835948900F8A4D8 /* HomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePresenter.swift; sourceTree = "<group>"; };
+		0876DEFA28361C0300F8A4D8 /* DataState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +135,8 @@
 			children = (
 				083484592835776700296543 /* UIMaterialChip.swift */,
 				0834845A2835776700296543 /* UIMaterialChip.xib */,
+				08378B2A283656D70095FD88 /* ArticleTableViewCell.swift */,
+				08378B2B283656D70095FD88 /* ArticleTableViewCell.xib */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -157,8 +165,17 @@
 			children = (
 				0834D9CE28348D13001CB156 /* CodableExtensions.swift */,
 				0834D9D02834BE39001CB156 /* NetworkExtensions.swift */,
+				0876DEFA28361C0300F8A4D8 /* DataState.swift */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		08378B27283638AC0095FD88 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				08378B28283638B90095FD88 /* HomePresenter.swift */,
+			);
+			path = Presenter;
 			sourceTree = "<group>";
 		};
 		0840F888283436B2009210E5 = {
@@ -256,9 +273,9 @@
 			children = (
 				0840F894283436B2009210E5 /* AppDelegate.swift */,
 				0840F896283436B2009210E5 /* SceneDelegate.swift */,
-				0840F8CA28343B91009210E5 /* Presenter */,
-				0876DEF62835928A00F8A4D8 /* Controller */,
+				08378B27283638AC0095FD88 /* Presenter */,
 				0840F8CB28343BC5009210E5 /* View */,
+				0876DEF62835928A00F8A4D8 /* Controller */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -271,14 +288,6 @@
 				0834D9C328347186001CB156 /* ArticleRepository.swift */,
 			);
 			path = Repository;
-			sourceTree = "<group>";
-		};
-		0840F8CA28343B91009210E5 /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-				0876DEF82835948900F8A4D8 /* HomePresenter.swift */,
-			);
-			path = Presenter;
 			sourceTree = "<group>";
 		};
 		0840F8CB28343BC5009210E5 /* View */ = {
@@ -411,6 +420,7 @@
 				0834845C2835776700296543 /* UIMaterialChip.xib in Resources */,
 				0840F8A1283436B5009210E5 /* LaunchScreen.storyboard in Resources */,
 				0840F89E283436B5009210E5 /* Assets.xcassets in Resources */,
+				08378B2D283656D70095FD88 /* ArticleTableViewCell.xib in Resources */,
 				0840F89C283436B2009210E5 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -438,17 +448,20 @@
 			files = (
 				0834D9D32834C4D3001CB156 /* Responses.swift in Sources */,
 				0834D9C628347421001CB156 /* ConduitApiClient.swift in Sources */,
+				08378B29283638B90095FD88 /* HomePresenter.swift in Sources */,
 				0840F8CD2834400A009210E5 /* User.swift in Sources */,
 				0840F8D528344787009210E5 /* ProfileInteractor.swift in Sources */,
 				0834D9BA28345E9C001CB156 /* ProfileRepository.swift in Sources */,
 				0834846028357E0A00296543 /* HomeViewController.swift in Sources */,
 				0840F8CF28344016009210E5 /* Article.swift in Sources */,
 				0834D9C428347186001CB156 /* ArticleRepository.swift in Sources */,
+				08378B2C283656D70095FD88 /* ArticleTableViewCell.swift in Sources */,
 				0834D9BE28346481001CB156 /* DataSource.swift in Sources */,
 				0834845B2835776700296543 /* UIMaterialChip.swift in Sources */,
 				0834D9B828345293001CB156 /* ArticleInteractor.swift in Sources */,
 				0834D9CC28348440001CB156 /* Requests.swift in Sources */,
 				0840F895283436B2009210E5 /* AppDelegate.swift in Sources */,
+				0876DEFB28361C0300F8A4D8 /* DataState.swift in Sources */,
 				0834D9D12834BE39001CB156 /* NetworkExtensions.swift in Sources */,
 				0840F8D328344034009210E5 /* Profile.swift in Sources */,
 				0840F8D728344FC9009210E5 /* AuthInteractor.swift in Sources */,
@@ -456,7 +469,6 @@
 				0840F897283436B2009210E5 /* SceneDelegate.swift in Sources */,
 				0840F8D128344020009210E5 /* Comment.swift in Sources */,
 				0834D9CF28348D13001CB156 /* CodableExtensions.swift in Sources */,
-				0876DEF92835948900F8A4D8 /* HomePresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

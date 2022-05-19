@@ -7,7 +7,7 @@
 
 struct Profile: Codable {
     var username: String
-    var bio: String
+    var bio: String?
     var image: String
     var following: Bool
 }
