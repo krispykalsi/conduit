@@ -1,5 +1,5 @@
 //
-//  HomeViewController.swift
+//  FeedViewController.swift
 //  conduit
 //
 //  Created by Ikroop Singh Kalsi on 19/05/22.
@@ -7,11 +7,11 @@
 
 import UIKit
 
-class HomeViewController: UIViewController {
+class FeedViewController: UIViewController {
     @IBOutlet weak var tagCollectionView: UICollectionView!
     @IBOutlet weak var articleTableView: UITableView!
     
-    private let presenter = HomePresenter.shared
+    private var presenter = HomeModel.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,23 +35,23 @@ class HomeViewController: UIViewController {
     }
     
     private func setupHomePresenter() {
-        presenter.eventDelegate = self
+        presenter.view = self
         presenter.loadDataForHomeView()
     }
     
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let identifier = segue.identifier else { return }
+        switch (identifier) {
+        case Segues.feedToArticle:
+            guard let idx = sender as? Int else { return }
+            presenter.articleDidTap(withIndex: idx)
+        default: break
+        }
+    }
 }
 
-extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return presenter.tags.count
@@ -74,8 +74,8 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
 }
 
-extension HomeViewController: HomeEventDelegate {
-    func homeEvent(onTagsStateChange state: DataState<[String]>) {
+extension FeedViewController: HomeView {
+    func presenterEvent(onTagsStateChange state: DataState<[String]>) {
         switch(state) {
         case .error(_): debugPrint("couldn't load tags")
         case .loaded(_):
@@ -86,7 +86,7 @@ extension HomeViewController: HomeEventDelegate {
         }
     }
     
-    func homeEvent(onArticlesStateChange state: DataState<[Article]>) {
+    func presenterEvent(onArticlesStateChange state: DataState<[Article]>) {
         switch(state) {
         case .error(_): debugPrint("couldn't load articles")
         case .loaded(_):
@@ -98,7 +98,7 @@ extension HomeViewController: HomeEventDelegate {
     }
 }
 
-extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
+extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return presenter.articles.count
     }
@@ -113,5 +113,9 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
                                                                    dateStyle: .medium,
                                                                    timeStyle: .short)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: Segues.feedToArticle, sender: indexPath.row)
     }
 }

@@ -39,6 +39,11 @@
                 <constraint firstItem="G92-qe-hLM" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="12" id="uNl-D1-B6N"/>
             </constraints>
             <size key="customSize" width="83" height="42"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                    <real key="value" value="20"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="label" destination="G92-qe-hLM" id="gnD-gV-ULZ"/>
             </connections>
@@ -47,7 +52,7 @@
     </objects>
     <resources>
         <namedColor name="Chip">
-            <color red="0.78263544606605273" green="0.79038431186868685" blue="0.79038431186868685" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="0.87400001287460327" green="0.88200002908706665" blue="0.88200002908706665" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
     </resources>
 </document>
