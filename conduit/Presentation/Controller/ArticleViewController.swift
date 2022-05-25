@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ArticleViewController: UIViewController {
+class ArticleViewController: UIViewController, HomeView {
     @IBOutlet weak var authorNameLabel: UILabel!
     @IBOutlet weak var dateCreatedLabel: UILabel!
     @IBOutlet weak var authorImageView: CircularImageView!
@@ -15,6 +15,8 @@ class ArticleViewController: UIViewController {
     @IBOutlet weak var articleBodyTextView: UITextView!
     
     private var presenter = HomeModel.shared
+    
+    var selectedArticle: Article?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,11 +30,15 @@ class ArticleViewController: UIViewController {
     }
     
     func populateArticleValues() {
-        guard let article = presenter.selectedArticle else { return }
+        guard let article = selectedArticle else { return }
         authorNameLabel.text = article.author.username
         dateCreatedLabel.text = DateFormatter.localizedString(from: article.createdAt, dateStyle: .medium, timeStyle: .none)
         articleTitleLabel.text = article.title
         articleBodyTextView.text = article.body
+    }
+    
+    @IBAction func onProfileTapped(_ sender: UITapGestureRecognizer) {
+        performSegue(withIdentifier: Segues.articleToProfile, sender: nil)
     }
     
     @IBAction func onFollowPressed(_ sender: UIButton) {

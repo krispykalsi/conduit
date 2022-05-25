@@ -1,29 +1,28 @@
 //
-//  ConduitApiClient.swift
+//  DataService.swift
 //  conduit
 //
-//  Created by Ikroop Singh Kalsi on 18/05/22.
+//  Created by Ikroop Singh Kalsi on 25/05/22.
 //
 
 import Foundation
 
-final class ConduitApiClient: DataSource {
-    internal init(urlSession: URLSession, jsonEncoder: JSONEncoder, jsonDecoder: JSONDecoder) {
-        self.urlSession = urlSession
-        self.jsonEncoder = jsonEncoder
-        self.jsonDecoder = jsonDecoder
-    }
+class DataService {
+    private static let baseUrl = URL(string: "https://api.realworld.io/api")!
+    private let userEndpoint = baseUrl.appendingPathComponent("user")
+    private let articlesEndpoint = baseUrl.appendingPathComponent("articles")
+    private let profilesEndpoint = baseUrl.appendingPathComponent("profiles")
+    private let tagsEndpoint = baseUrl.appendingPathComponent("tags")
     
     private let urlSession: URLSession
     private let jsonEncoder: JSONEncoder
     private let jsonDecoder: JSONDecoder
     
-    private static let baseUrl = URL(string: "https://api.realworld.io/api")!
-    private let usersEndpoint = baseUrl.appendingPathComponent("users")
-    private let userEndpoint = baseUrl.appendingPathComponent("user")
-    private let articlesEndpoint = baseUrl.appendingPathComponent("articles")
-    private let profilesEndpoint = baseUrl.appendingPathComponent("profiles")
-    private let tagsEndpoint = baseUrl.appendingPathComponent("tags")
+    internal init(urlSession: URLSession, jsonEncoder: JSONEncoder, jsonDecoder: JSONDecoder) {
+        self.urlSession = urlSession
+        self.jsonEncoder = jsonEncoder
+        self.jsonDecoder = jsonDecoder
+    }
     
     private func handleBadResponse(_ response: URLResponse, withData data: Data) throws {
         if let httpResponse = response as? HTTPURLResponse {
@@ -40,30 +39,10 @@ final class ConduitApiClient: DataSource {
             }
         }
     }
-    
-    // MARK: AUTHENTICATION
-    func login(withEmail user: LoginViaEmailParams) async throws -> User {
-        let url = usersEndpoint.appendingPathComponent("login")
-        let body = LoginUserRequest(user: user)
-        var req = URLRequest(url: url, method: .post)
-        req.httpBody = try jsonEncoder.encode(body)
-        let (data, res) = try await urlSession.data(for: req)
-        try handleBadResponse(res, withData: data)
-        let decodedResponse = try jsonDecoder.decode(UserResponse.self, from: data)
-        return decodedResponse.user
-    }
-    
-    func register(withEmail user: RegisterViaEmailParams) async throws -> User {
-        let body = RegisterUserRequest(user: user)
-        var req = URLRequest(url: usersEndpoint, method: .post)
-        req.httpBody = try jsonEncoder.encode(body)
-        let (data, res) = try await urlSession.data(for: req)
-        try handleBadResponse(res, withData: data)
-        let decodedResponse = try jsonDecoder.decode(UserResponse.self, from: data)
-        return decodedResponse.user
-    }
-    
-    // MARK: PROFILE
+}
+
+// MARK: ProfileInteractor
+extension DataService: ProfileInteractor {
     func fetchCurrentUser() async throws -> User {
         let req = URLRequest(url: userEndpoint, method: .get)
         let (data, res) = try await urlSession.data(for: req)
@@ -108,7 +87,10 @@ final class ConduitApiClient: DataSource {
         let decodedResponse = try jsonDecoder.decode(ProfileResponse.self, from: data)
         return decodedResponse.profile
     }
-    
+}
+
+// MARK: ArticleInteractor
+extension DataService: ArticleInteractor {
     // MARK: FEED
     func fetchUserFeed(with params: UserFeedParams) async throws -> [Article] {
         let url = articlesEndpoint.appendingPathComponent("feed")

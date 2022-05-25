@@ -25,66 +25,55 @@ final class HomeModel: HomePresenter {
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = JSONDecoder.DateDecodingStrategy.formatted(formatter)
-        let api = ConduitApiClient(urlSession: urlSession,
+        let api = DataService(urlSession: urlSession,
                                    jsonEncoder: JSONEncoder(),
                                    jsonDecoder: decoder)
-        let interactor = ArticleRepository(dataSource: api)
-        return HomeModel(articleInteractor: interactor)
+        return HomeModel(articleInteractor: api)
     }()
     
     private let articleInteractor: ArticleInteractor
     weak var view: HomeView?
     
-    private(set) var tags: [String] = []
-    private(set) var articles: [Article] = []
-    private(set) var selectedArticle: Article?
+    private var tags: [String] = []
+    private var articles: [Article] = []
     
     private let articlesPagingLimit = 10
     
     func loadDataForHomeView() {
         view?.presenterEvent(onTagsStateChange: .loading)
         view?.presenterEvent(onArticlesStateChange: .loading)
-        
         Task(priority: .userInitiated) {
             let feedParams = GlobalFeedParams(limit: articlesPagingLimit, offset: 0)
-            async let tagsResult = articleInteractor.fetchTags()
-            async let articlesResult = articleInteractor.fetchGlobalFeed(with: feedParams)
+            async let newTags = articleInteractor.fetchTags()
+            async let newArticles = articleInteractor.fetchGlobalFeed(with: feedParams)
             
-            switch(await tagsResult) {
-            case .success(let newTags):
-                tags = newTags
-                view?.presenterEvent(onTagsStateChange: .loaded(newTags))
-            case .failure(let error): debugPrint(error)
+            do {
+                tags = try await newTags
+                view?.presenterEvent(onTagsStateChange: .loaded(tags))
+            } catch {
                 view?.presenterEvent(onTagsStateChange: .error(error))
             }
             
-            switch(await articlesResult) {
-            case .success(let newArticles):
-                articles = newArticles
-                view?.presenterEvent(onArticlesStateChange: .loaded(newArticles))
-            case .failure(let error): debugPrint(error)
+            do {
+                articles = try await newArticles
+                view?.presenterEvent(onArticlesStateChange: .loaded(articles))
+            } catch {
                 view?.presenterEvent(onArticlesStateChange: .error(error))
             }
         }
     }
     
     func loadMoreArticles() {
-        view?.presenterEvent(onTagsStateChange: .loading)
         view?.presenterEvent(onArticlesStateChange: .loading)
-        
         Task(priority: .userInitiated) {
             let feedParams = GlobalFeedParams(limit: articlesPagingLimit, offset: articles.count)
-            switch(await articleInteractor.fetchGlobalFeed(with: feedParams)) {
-            case .success(let newArticles): debugPrint(newArticles)
-                articles = newArticles
-                view?.presenterEvent(onArticlesStateChange: .loaded(newArticles))
-            case .failure(let error): debugPrint(error)
+            do {
+                let newArticles = try await articleInteractor.fetchGlobalFeed(with: feedParams)
+                articles.append(contentsOf: newArticles)
+                view?.presenterEvent(onArticlesStateChange: .loaded(articles))
+            } catch {
                 view?.presenterEvent(onArticlesStateChange: .error(error))
             }
         }
-    }
-    
-    func articleDidTap(withIndex index: Int) {
-        selectedArticle = articles[index]
     }
 }

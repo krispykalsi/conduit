@@ -6,11 +6,11 @@
 //
 
 protocol ProfileInteractor {
-    func fetchCurrentUser() async -> Result<User, Error>
-    func updateUser(with params: UpdateUserParams) async -> Result<User, Error>
-    func fetchProfile(with username: String) async -> Result<Profile, Error>
-    func followProfile(with username: String) async -> Result<Profile, Error>
-    func unfollowProfile(with username: String) async -> Result<Profile, Error>
+    func fetchCurrentUser() async throws -> User
+    func updateUser(with params: UpdateUserParams) async throws -> User
+    func fetchProfile(with username: String) async throws -> Profile
+    func followProfile(with username: String) async throws -> Profile
+    func unfollowProfile(with username: String) async throws -> Profile
 }
 
 struct UpdateUserParams: Codable {

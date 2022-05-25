@@ -7,26 +7,26 @@
 
 protocol ArticleInteractor {
     // MARK: FEED
-    func fetchUserFeed(with params: UserFeedParams) async -> Result<[Article], Error>
-    func fetchGlobalFeed(with params: GlobalFeedParams) async -> Result<[Article], Error>
+    func fetchUserFeed(with params: UserFeedParams) async throws -> [Article]
+    func fetchGlobalFeed(with params: GlobalFeedParams) async throws -> [Article]
     
     // MARK: ARTICLE
-    func createArticle(withParams params: CreateArticleParams) async -> Result<Article, Error>
-    func fetchArticle(viaSlug slug: String) async -> Result<Article, Error>
-    func updateArticle(viaSlug slug: String, withParams params: UpdateArticleParams) async -> Result<Article, Error>
-    func deleteArticle(viaSlug slug: String) async -> Result<Void, Error>
+    func createArticle(withParams params: CreateArticleParams) async throws -> Article
+    func fetchArticle(viaSlug slug: String) async throws -> Article
+    func updateArticle(viaSlug slug: String, withParams params: UpdateArticleParams) async throws -> Article
+    func deleteArticle(viaSlug slug: String) async throws
     
     // MARK: COMMENTS
-    func fetchComments(ofArticleWithSlug slug: String) async -> Result<[Comment], Error>
-    func createComment(onArticleWithSlug slug: String, body: String) async -> Result<Comment, Error>
-    func deleteComment(withId id: Int, onArticleWithSlug slug: String) async -> Result<Void, Error>
+    func fetchComments(ofArticleWithSlug slug: String) async throws -> [Comment]
+    func createComment(onArticleWithSlug slug: String, body: String) async throws -> Comment
+    func deleteComment(withId id: Int, onArticleWithSlug slug: String) async throws
     
     // MARK: FAVORITE
-    func favoriteArticle(withSlug slug: String) async -> Result<Article, Error>
-    func unfavoriteArticle(withSlug slug: String) async -> Result<Article, Error>
+    func favoriteArticle(withSlug slug: String) async throws -> Article
+    func unfavoriteArticle(withSlug slug: String) async throws -> Article
     
     // MARK: TAGS
-    func fetchTags() async -> Result<[String], Error>
+    func fetchTags() async throws -> [String]
 }
 
 // MARK: -

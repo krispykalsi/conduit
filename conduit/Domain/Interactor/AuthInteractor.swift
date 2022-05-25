@@ -6,8 +6,12 @@
 //
 
 protocol AuthInteractor {
-    func login(withEmail params: LoginViaEmailParams) async -> Result<User, Error>
-    func register(withEmail params: RegisterViaEmailParams) async -> Result<User, Error>
+    var username: String? { get }
+    var authToken: String? { get }
+    
+    func login(withEmail user: LoginViaEmailParams) async throws -> User
+    func register(withEmail user: RegisterViaEmailParams) async throws -> User
+    func logout() async throws
 }
 
 struct LoginViaEmailParams: Encodable {

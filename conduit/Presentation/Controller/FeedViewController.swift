@@ -13,6 +13,9 @@ class FeedViewController: UIViewController {
     
     private var presenter = HomeModel.shared
     
+    private var tags: [String] = []
+    private var articles: [Article] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTagCollectionView()
@@ -23,14 +26,16 @@ class FeedViewController: UIViewController {
     private func setupTagCollectionView() {
         tagCollectionView.delegate = self
         tagCollectionView.dataSource = self
-        tagCollectionView.register(UINib(nibName: "UIMaterialChip", bundle: nil),
+        let nibName = String(describing: UIMaterialChip.self)
+        tagCollectionView.register(UINib(nibName: nibName, bundle: nil),
                                    forCellWithReuseIdentifier: UIMaterialChip.reuseIdentifier)
     }
     
     private func setupArticleTableView() {
         articleTableView.delegate = self
         articleTableView.dataSource = self
-        articleTableView.register(UINib(nibName: "ArticleTableViewCell", bundle: nil),
+        let nibName = String(describing: ArticleTableViewCell.self)
+        articleTableView.register(UINib(nibName: nibName, bundle: nil),
                                   forCellReuseIdentifier: ArticleTableViewCell.reuseIdentifier)
     }
     
@@ -44,8 +49,9 @@ class FeedViewController: UIViewController {
         guard let identifier = segue.identifier else { return }
         switch (identifier) {
         case Segues.feedToArticle:
-            guard let idx = sender as? Int else { return }
-            presenter.articleDidTap(withIndex: idx)
+            let article = sender as! Article
+            let vc = segue.destination as! ArticleViewController
+            vc.selectedArticle = article
         default: break
         }
     }
@@ -54,7 +60,7 @@ class FeedViewController: UIViewController {
 extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return presenter.tags.count
+        return tags.count
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -64,12 +70,12 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let chip = collectionView.dequeueReusableCell(withReuseIdentifier: UIMaterialChip.reuseIdentifier,
                                                       for: indexPath) as! UIMaterialChip
-        chip.label.text = presenter.tags[indexPath.row]
+        chip.label.text = tags[indexPath.row]
         return chip
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let labelWidth = presenter.tags[indexPath.row].size(withAttributes: [.font: UIMaterialChip.labelFont]).width
+        let labelWidth = tags[indexPath.row].size(withAttributes: [.font: UIMaterialChip.labelFont]).width
         return CGSize(width: labelWidth + 40, height: 40)
     }
 }
@@ -78,7 +84,8 @@ extension FeedViewController: HomeView {
     func presenterEvent(onTagsStateChange state: DataState<[String]>) {
         switch(state) {
         case .error(_): debugPrint("couldn't load tags")
-        case .loaded(_):
+        case .loaded(let newTags):
+            tags = newTags
             DispatchQueue.main.async {
                 self.tagCollectionView.reloadData()
             }
@@ -89,7 +96,8 @@ extension FeedViewController: HomeView {
     func presenterEvent(onArticlesStateChange state: DataState<[Article]>) {
         switch(state) {
         case .error(_): debugPrint("couldn't load articles")
-        case .loaded(_):
+        case .loaded(let newArticles):
+            articles = newArticles
             DispatchQueue.main.async {
                 self.articleTableView.reloadData()
             }
@@ -100,13 +108,13 @@ extension FeedViewController: HomeView {
 
 extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter.articles.count
+        return articles.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ArticleTableViewCell.reuseIdentifier,
                                                  for: indexPath) as! ArticleTableViewCell
-        let article = presenter.articles[indexPath.row]
+        let article = articles[indexPath.row]
         cell.authorLabel.text = article.author.username
         cell.titleLabel.text = article.title
         cell.dateCreatedLabel.text = DateFormatter.localizedString(from: article.createdAt,
@@ -116,6 +124,6 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: Segues.feedToArticle, sender: indexPath.row)
+        performSegue(withIdentifier: Segues.feedToArticle, sender: articles[indexPath.row])
     }
 }
