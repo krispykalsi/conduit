@@ -5,9 +5,9 @@
 //  Created by Ikroop Singh Kalsi on 20/05/22.
 //
 
-protocol HomePresenter {
-    var view: HomeView? { get set }
+@MainActor protocol HomePresenter {
+    var feedView: FeedView? { get set }
 
-    func loadDataForHomeView()
+    func loadGlobalFeed()
     func loadMoreArticles()
 }

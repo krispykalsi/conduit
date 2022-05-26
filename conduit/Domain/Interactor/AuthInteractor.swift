@@ -8,6 +8,7 @@
 protocol AuthInteractor {
     var username: String? { get }
     var authToken: String? { get }
+    var isLoggedIn: Bool { get }
     
     func login(withEmail user: LoginViaEmailParams) async throws -> User
     func register(withEmail user: RegisterViaEmailParams) async throws -> User

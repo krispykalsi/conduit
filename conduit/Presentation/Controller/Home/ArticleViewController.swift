@@ -7,30 +7,23 @@
 
 import UIKit
 
-class ArticleViewController: UIViewController, HomeView {
+class ArticleViewController: UIViewController {
     @IBOutlet weak var authorNameLabel: UILabel!
     @IBOutlet weak var dateCreatedLabel: UILabel!
     @IBOutlet weak var authorImageView: CircularImageView!
     @IBOutlet weak var articleTitleLabel: UILabel!
     @IBOutlet weak var articleBodyTextView: UITextView!
-    
-    private var presenter = HomeModel.shared
-    
-    var selectedArticle: Article?
+        
+    var article: Article?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.tintColor = UIColor.label
-        setupHomePresenter()
         populateArticleValues()
     }
     
-    func setupHomePresenter() {
-        presenter.view = self
-    }
-    
     func populateArticleValues() {
-        guard let article = selectedArticle else { return }
+        guard let article = article else { return }
         authorNameLabel.text = article.author.username
         dateCreatedLabel.text = DateFormatter.localizedString(from: article.createdAt, dateStyle: .medium, timeStyle: .none)
         articleTitleLabel.text = article.title
@@ -38,20 +31,22 @@ class ArticleViewController: UIViewController, HomeView {
     }
     
     @IBAction func onProfileTapped(_ sender: UITapGestureRecognizer) {
-        performSegue(withIdentifier: Segues.articleToProfile, sender: nil)
+        guard let article = article else { return }
+        performSegue(withIdentifier: getSegue(.articleToProfile), sender: article.author.username)
     }
     
     @IBAction func onFollowPressed(_ sender: UIButton) {
         
     }
-    /*
+    
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        switch(NavigationSegue(rawValue: segue.identifier ?? "")) {
+        case .articleToProfile:
+            let name = sender as! String
+            let vc = segue.destination as! ProfileViewController
+            vc.username = name
+        default: break
+        }
     }
-    */
-
 }

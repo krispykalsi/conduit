@@ -1,0 +1,15 @@
+//
+//  HomeView.swift
+//  conduit
+//
+//  Created by Ikroop Singh Kalsi on 20/05/22.
+//
+
+@MainActor protocol FeedView: AnyObject {
+    func feedView(didUpdateStateOf data: FeedViewData)
+}
+
+enum FeedViewData {
+    case tags(DataState<[String]>)
+    case articles(DataState<[Article]>)
+}

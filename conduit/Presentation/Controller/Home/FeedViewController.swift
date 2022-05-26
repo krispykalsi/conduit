@@ -40,18 +40,17 @@ class FeedViewController: UIViewController {
     }
     
     private func setupHomePresenter() {
-        presenter.view = self
-        presenter.loadDataForHomeView()
+        presenter.feedView = self
+        presenter.loadGlobalFeed()
     }
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let identifier = segue.identifier else { return }
-        switch (identifier) {
-        case Segues.feedToArticle:
+        switch (NavigationSegue(rawValue: segue.identifier ?? "")) {
+        case .feedToArticle:
             let article = sender as! Article
             let vc = segue.destination as! ArticleViewController
-            vc.selectedArticle = article
+            vc.article = article
         default: break
         }
     }
@@ -80,27 +79,32 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
 }
 
-extension FeedViewController: HomeView {
-    func presenterEvent(onTagsStateChange state: DataState<[String]>) {
+extension FeedViewController: FeedView {
+    func feedView(didUpdateStateOf data: FeedViewData) {
+        switch(data) {
+        case .tags(let s):
+            handleTagsDataState(s)
+        case .articles(let s):
+            handleArticlesDataState(s)
+        }
+    }
+    
+    private func handleTagsDataState(_ state: DataState<[String]>) {
         switch(state) {
         case .error(_): debugPrint("couldn't load tags")
         case .loaded(let newTags):
             tags = newTags
-            DispatchQueue.main.async {
-                self.tagCollectionView.reloadData()
-            }
+            self.tagCollectionView.reloadData()
         case .loading: debugPrint("loading tags")
         }
     }
     
-    func presenterEvent(onArticlesStateChange state: DataState<[Article]>) {
+    private func handleArticlesDataState(_ state: DataState<[Article]>) {
         switch(state) {
         case .error(_): debugPrint("couldn't load articles")
         case .loaded(let newArticles):
             articles = newArticles
-            DispatchQueue.main.async {
-                self.articleTableView.reloadData()
-            }
+            self.articleTableView.reloadData()
         case .loading: debugPrint("loading articles")
         }
     }
@@ -124,6 +128,6 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: Segues.feedToArticle, sender: articles[indexPath.row])
+        performSegue(withIdentifier: getSegue(.feedToArticle), sender: articles[indexPath.row])
     }
 }
