@@ -108,12 +108,7 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: ArticleTableViewCell.reuseIdentifier,
                                                  for: indexPath) as! ArticleTableViewCell
         let article = articles[indexPath.row]
-        cell.authorLabel.text = article.author.username
-        cell.authorImage.loadImage(fromUrl: article.author.image)
-        cell.titleLabel.text = article.title
-        cell.dateCreatedLabel.text = DateFormatter.localizedString(from: article.createdAt,
-                                                                   dateStyle: .medium,
-                                                                   timeStyle: .short)
+        cell.populateValues(from: article)
         return cell
     }
     

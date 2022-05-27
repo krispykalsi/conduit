@@ -25,7 +25,7 @@ extension HomeModel: HomePresenter {
     func loadGlobalFeed() {
         feedView?.feedView(didUpdateStateOf: .tags(.loading))
         feedView?.feedView(didUpdateStateOf: .articles(.loading))
-        Task(priority: .userInitiated) {
+        Task {
             let feedParams = GlobalFeedParams(limit: articlesPagingLimit, offset: 0)
             async let newTags = articleInteractor.fetchTags()
             async let newArticles = articleInteractor.fetchGlobalFeed(with: feedParams)
@@ -48,7 +48,7 @@ extension HomeModel: HomePresenter {
     
     func loadMoreArticles() {
         feedView?.feedView(didUpdateStateOf: .articles(.loading))
-        Task(priority: .userInitiated) {
+        Task {
             let feedParams = GlobalFeedParams(limit: articlesPagingLimit, offset: articles.count)
             do {
                 let newArticles = try await articleInteractor.fetchGlobalFeed(with: feedParams)

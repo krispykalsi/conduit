@@ -22,12 +22,18 @@ class ProfileViewController: UIViewController {
     var isOwnProfile = true
     
     private let userArticlesManager = ArticlesManager(showAuthorDetails: false)
-    private let favoriteArticlesManager = ArticlesManager()
+    private let favoriteArticlesManager = ArticlesManager(showAuthorDetails: true)
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupArticleManager()
         setupArticleViews()
         setupPresenter()
+    }
+    
+    private func setupArticleManager() {
+        userArticlesManager.parentViewController = self
+        favoriteArticlesManager.parentViewController = self
     }
     
     private func setupArticleViews() {
@@ -114,12 +120,10 @@ fileprivate class ArticlesManager: NSObject, UITableViewDelegate, UITableViewDat
     private var articles: [Article] = []
     private let showAuthorDetails: Bool
     
+    weak var parentViewController: UIViewController?
+    
     init(showAuthorDetails: Bool) {
         self.showAuthorDetails = showAuthorDetails
-    }
-    
-    convenience override init() {
-        self.init(showAuthorDetails: true)
     }
     
     func update(_ articles: [Article]) {
@@ -133,16 +137,11 @@ fileprivate class ArticlesManager: NSObject, UITableViewDelegate, UITableViewDat
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ArticleTableViewCell.reuseIdentifier, for: indexPath) as! ArticleTableViewCell
         let article = articles[indexPath.row]
-        if showAuthorDetails {
-            cell.authorLabel.text = article.author.username
-            cell.authorImage.loadImage(fromUrl: article.author.image)
-        } else {
-            cell.authorStackView.isHidden = true
-        }
-        cell.titleLabel.text = article.title
-        cell.dateCreatedLabel.text = DateFormatter.localizedString(from: article.createdAt,
-                                                                   dateStyle: .medium,
-                                                                   timeStyle: .short)
+        cell.populateValues(from: article, isAuthorVisible: showAuthorDetails)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        Router.shared.navigate(from: parentViewController!, to: .articleView(articles[indexPath.row]))
     }
 }

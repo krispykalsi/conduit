@@ -19,7 +19,7 @@ class CachedImageView: UIImageView {
             self.image = imageFromCache
             return
         }
-        Task.detached(priority: .userInitiated) {
+        Task {
             do {
                 let (data, _) = try await URLSession.shared.data(from: url)
                 guard let image = UIImage(data: data) else { return }

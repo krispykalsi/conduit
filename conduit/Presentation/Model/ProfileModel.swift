@@ -40,7 +40,7 @@ extension ProfileModel: ProfilePresenter {
     }
     
     @MainActor private func fetchProfileData(for username: String) {
-        Task(priority: .userInitiated) {
+        Task {
             profileView?.profilePresenter(didUpdateStateOf: .profile(.loading))
             do {
                 let profile = try await profileInteractor.fetchProfile(with: username)
@@ -55,7 +55,7 @@ extension ProfileModel: ProfilePresenter {
         profileView?.profilePresenter(didUpdateStateOf: .userArticles(.loading))
         profileView?.profilePresenter(didUpdateStateOf: .favoriteArticles(.loading))
         
-        Task(priority: .userInitiated) {
+        Task {
             async let userArticlesAsync = try articleInteractor.fetchGlobalFeed(with: GlobalFeedParams(author: username))
             async let favArticlesAsync = try articleInteractor.fetchGlobalFeed(with: GlobalFeedParams(favorited: username))
             
