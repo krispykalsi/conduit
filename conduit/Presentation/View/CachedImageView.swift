@@ -26,6 +26,7 @@ class CachedImageView: UIImageView {
                 await MainActor.run { [weak self] in
                     self?.image = image
                 }
+                CachedImageView.cache.setObject(image, forKey: url as NSURL)
             } catch {
                 debugPrint(error)
             }
