@@ -26,9 +26,9 @@ class FeedViewController: UIViewController {
     private func setupTagCollectionView() {
         tagCollectionView.delegate = self
         tagCollectionView.dataSource = self
-        let nibName = String(describing: UIMaterialChip.self)
+        let nibName = String(describing: TagCollectionViewCell.self)
         tagCollectionView.register(UINib(nibName: nibName, bundle: nil),
-                                   forCellWithReuseIdentifier: UIMaterialChip.reuseIdentifier)
+                                   forCellWithReuseIdentifier: TagCollectionViewCell.reuseIdentifier)
     }
     
     private func setupArticleTableView() {
@@ -56,14 +56,14 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let chip = collectionView.dequeueReusableCell(withReuseIdentifier: UIMaterialChip.reuseIdentifier,
-                                                      for: indexPath) as! UIMaterialChip
+        let chip = collectionView.dequeueReusableCell(withReuseIdentifier: TagCollectionViewCell.reuseIdentifier,
+                                                      for: indexPath) as! TagCollectionViewCell
         chip.label.text = tags[indexPath.row]
         return chip
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let labelWidth = tags[indexPath.row].size(withAttributes: [.font: UIMaterialChip.labelFont]).width
+        let labelWidth = tags[indexPath.row].size(withAttributes: [.font: TagCollectionViewCell.labelFont]).width
         return CGSize(width: labelWidth + 40, height: 40)
     }
 }

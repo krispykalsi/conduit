@@ -1,5 +1,5 @@
 //
-//  UIMaterialChip.swift
+//  TagCollectionViewCell.swift
 //  conduit
 //
 //  Created by Ikroop Singh Kalsi on 19/05/22.
@@ -7,8 +7,8 @@
 
 import UIKit
 
-class UIMaterialChip: UICollectionViewCell {
-    static let reuseIdentifier = "materialChip"
+class TagCollectionViewCell: UICollectionViewCell {
+    static let reuseIdentifier = "tagCell"
     static let labelFont = UIFont(name: "Heebo-Regular", size: 18.0)!
     private let cornerRadius = 20.0
     
@@ -16,7 +16,7 @@ class UIMaterialChip: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        label.font = UIMaterialChip.labelFont
+        label.font = TagCollectionViewCell.labelFont
         // Apply rounded corners to contentView
         contentView.layer.cornerRadius = cornerRadius
         contentView.layer.masksToBounds = true

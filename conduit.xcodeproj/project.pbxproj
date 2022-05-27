@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0834845628355E0000296543 /* Heebo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0834845528355E0000296543 /* Heebo.ttf */; };
-		0834845B2835776700296543 /* UIMaterialChip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083484592835776700296543 /* UIMaterialChip.swift */; };
-		0834845C2835776700296543 /* UIMaterialChip.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0834845A2835776700296543 /* UIMaterialChip.xib */; };
+		0834845B2835776700296543 /* TagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083484592835776700296543 /* TagCollectionViewCell.swift */; };
+		0834845C2835776700296543 /* TagCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0834845A2835776700296543 /* TagCollectionViewCell.xib */; };
 		0834846028357E0A00296543 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0834845F28357E0A00296543 /* FeedViewController.swift */; };
 		0834D9B828345293001CB156 /* ArticleInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0834D9B728345293001CB156 /* ArticleInteractor.swift */; };
 		0834D9CC28348440001CB156 /* Requests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0834D9CB28348440001CB156 /* Requests.swift */; };
@@ -71,8 +71,8 @@
 
 /* Begin PBXFileReference section */
 		0834845528355E0000296543 /* Heebo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Heebo.ttf; sourceTree = "<group>"; };
-		083484592835776700296543 /* UIMaterialChip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIMaterialChip.swift; sourceTree = "<group>"; };
-		0834845A2835776700296543 /* UIMaterialChip.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UIMaterialChip.xib; sourceTree = "<group>"; };
+		083484592835776700296543 /* TagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCollectionViewCell.swift; sourceTree = "<group>"; };
+		0834845A2835776700296543 /* TagCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagCollectionViewCell.xib; sourceTree = "<group>"; };
 		0834845F28357E0A00296543 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		0834D9B728345293001CB156 /* ArticleInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleInteractor.swift; sourceTree = "<group>"; };
 		0834D9CB28348440001CB156 /* Requests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Requests.swift; sourceTree = "<group>"; };
@@ -155,8 +155,8 @@
 		0834845D28357D7100296543 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				083484592835776700296543 /* UIMaterialChip.swift */,
-				0834845A2835776700296543 /* UIMaterialChip.xib */,
+				083484592835776700296543 /* TagCollectionViewCell.swift */,
+				0834845A2835776700296543 /* TagCollectionViewCell.xib */,
 				08378B2A283656D70095FD88 /* ArticleTableViewCell.swift */,
 				08378B2B283656D70095FD88 /* ArticleTableViewCell.xib */,
 				0893EA9828380E8800C4BF4A /* CircularImageView.swift */,
@@ -498,7 +498,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0834845628355E0000296543 /* Heebo.ttf in Resources */,
-				0834845C2835776700296543 /* UIMaterialChip.xib in Resources */,
+				0834845C2835776700296543 /* TagCollectionViewCell.xib in Resources */,
 				0840F8A1283436B5009210E5 /* LaunchScreen.storyboard in Resources */,
 				0840F89E283436B5009210E5 /* Assets.xcassets in Resources */,
 				08378B2D283656D70095FD88 /* ArticleTableViewCell.xib in Resources */,
@@ -544,7 +544,7 @@
 				08378B2C283656D70095FD88 /* ArticleTableViewCell.swift in Sources */,
 				08EB0B24283ECDCF008E976F /* AuthError.swift in Sources */,
 				08FB01CB28410E3800B65276 /* Router.swift in Sources */,
-				0834845B2835776700296543 /* UIMaterialChip.swift in Sources */,
+				0834845B2835776700296543 /* TagCollectionViewCell.swift in Sources */,
 				08671A11283E6C0800B52A7E /* ProfileView.swift in Sources */,
 				08EB0B1C283E943C008E976F /* ProfileModel.swift in Sources */,
 				0834D9B828345293001CB156 /* ArticleInteractor.swift in Sources */,
