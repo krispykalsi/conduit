@@ -85,6 +85,7 @@ extension ProfileViewController: ProfileView {
         if case .loaded(let profile) = state {
             nameLabel.text = profile.username
             bioTextView.text = profile.bio
+            userImageView.loadImage(fromUrl: profile.image)
         }
     }
     
@@ -128,6 +129,7 @@ fileprivate class ArticlesManager: NSObject, UITableViewDelegate, UITableViewDat
         let article = articles[indexPath.row]
         if showAuthorDetails {
             cell.authorLabel.text = article.author.username
+            cell.authorImage.loadImage(fromUrl: article.author.image)
         } else {
             cell.authorStackView.isHidden = true
         }

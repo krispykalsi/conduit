@@ -25,6 +25,7 @@ class ArticleViewController: UIViewController {
     func populateArticleValues() {
         guard let article = article else { return }
         authorNameLabel.text = article.author.username
+        authorImageView.loadImage(fromUrl: article.author.image)
         dateCreatedLabel.text = DateFormatter.localizedString(from: article.createdAt, dateStyle: .medium, timeStyle: .none)
         articleTitleLabel.text = article.title
         articleBodyTextView.text = article.body
