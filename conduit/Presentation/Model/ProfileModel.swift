@@ -32,28 +32,32 @@ class ProfileModel {
 extension ProfileModel: ProfilePresenter {
     func fetchCurrentUserProfileData() {
         if let username = authInteractor.username {
-            fetchProfileData(with: username)
+            fetchProfileData(for: username)
+            fetchArticleData(for: username)
         } else {
             profileView?.profilePresenterRequiresAuth()
         }
     }
     
-    func fetchProfileData(with username: String) {
-        profileView?.profilePresenter(didUpdateStateOf: .profile(.loading))
-        profileView?.profilePresenter(didUpdateStateOf: .userArticles(.loading))
-        profileView?.profilePresenter(didUpdateStateOf: .favoriteArticles(.loading))
-        
+    @MainActor private func fetchProfileData(for username: String) {
         Task(priority: .userInitiated) {
-            async let profileAsync = try profileInteractor.fetchProfile(with: username)
-            async let userArticlesAsync = try articleInteractor.fetchGlobalFeed(with: GlobalFeedParams(author: username))
-            async let favArticlesAsync = try articleInteractor.fetchGlobalFeed(with: GlobalFeedParams(favorited: username))
-            
+            profileView?.profilePresenter(didUpdateStateOf: .profile(.loading))
             do {
-                let profile = try await profileAsync
+                let profile = try await profileInteractor.fetchProfile(with: username)
                 profileView?.profilePresenter(didUpdateStateOf: .profile(.loaded(profile)))
             } catch {
                 profileView?.profilePresenter(didUpdateStateOf: .profile(.error(error)))
             }
+        }
+    }
+    
+    func fetchArticleData(for username: String) {
+        profileView?.profilePresenter(didUpdateStateOf: .userArticles(.loading))
+        profileView?.profilePresenter(didUpdateStateOf: .favoriteArticles(.loading))
+        
+        Task(priority: .userInitiated) {
+            async let userArticlesAsync = try articleInteractor.fetchGlobalFeed(with: GlobalFeedParams(author: username))
+            async let favArticlesAsync = try articleInteractor.fetchGlobalFeed(with: GlobalFeedParams(favorited: username))
             
             do {
                 let userArticles = try await userArticlesAsync

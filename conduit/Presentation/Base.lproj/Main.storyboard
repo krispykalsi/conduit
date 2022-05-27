@@ -60,7 +60,7 @@
         <!--Home-->
         <scene sceneID="CWF-1Q-RGh">
             <objects>
-                <viewController storyboardIdentifier="myArticles" id="k8O-v7-1YI" customClass="FeedViewController" customModule="conduit" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FeedViewController" id="k8O-v7-1YI" customClass="FeedViewController" customModule="conduit" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="YVR-Qx-k97">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -101,7 +101,6 @@
                     <connections>
                         <outlet property="articleTableView" destination="IPf-7q-QeP" id="qUc-Ic-f7S"/>
                         <outlet property="tagCollectionView" destination="54I-Ar-UBa" id="bdy-W5-4YA"/>
-                        <segue destination="Scd-Qt-qqd" kind="show" identifier="feedToArticle" id="Pvc-UN-Xuc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Np8-NJ-Fph" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -117,7 +116,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="QBl-Ox-xd6">
-                                <rect key="frame" x="20" y="88" width="151.5" height="60"/>
+                                <rect key="frame" x="20" y="44" width="151.5" height="60"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="WU3-xo-o0P" customClass="CircularImageView" customModule="conduit" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="6.5" width="50" height="47.5"/>
@@ -174,7 +173,7 @@
                                 </constraints>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eDI-Zg-eOP">
-                                <rect key="frame" x="20" y="164" width="366" height="52"/>
+                                <rect key="frame" x="20" y="120" width="366" height="52"/>
                                 <attributedString key="attributedText">
                                     <fragment content="How I built my tech startup as a solo developer">
                                         <attributes>
@@ -187,7 +186,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="U68-ak-FtY">
-                                <rect key="frame" x="20" y="228" width="374" height="585"/>
+                                <rect key="frame" x="20" y="184" width="374" height="678"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <color key="textColor" systemColor="labelColor"/>
@@ -218,7 +217,6 @@
                         <outlet property="authorImageView" destination="WU3-xo-o0P" id="rAz-qN-WTy"/>
                         <outlet property="authorNameLabel" destination="PLO-lm-fqe" id="Ptk-CC-aqV"/>
                         <outlet property="dateCreatedLabel" destination="g0F-3b-rIU" id="ZkO-nd-d1f"/>
-                        <segue destination="9zu-kX-soq" kind="show" identifier="articleToProfile" id="vc3-Bm-1RL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hbj-lE-eCv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -261,16 +259,16 @@
         <!--Profile-->
         <scene sceneID="J2q-Og-LM0">
             <objects>
-                <viewController id="9zu-kX-soq" customClass="ProfileViewController" customModule="conduit" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ProfileViewController" id="9zu-kX-soq" customClass="ProfileViewController" customModule="conduit" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9oU-TR-zHU">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="252" alignment="top" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="hcq-KU-uxZ">
-                                <rect key="frame" x="20" y="100" width="344" height="108"/>
+                                <rect key="frame" x="20" y="153.5" width="344" height="85.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="1LL-V2-tnc">
-                                        <rect key="frame" x="0.0" y="0.0" width="70" height="104"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="70" height="85.5"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="7LK-tw-zeV" customClass="CircularImageView" customModule="conduit" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="1.5" width="70" height="67.5"/>
@@ -280,7 +278,7 @@
                                                 </constraints>
                                             </imageView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gcu-c5-cWM" customClass="FollowButton" customModule="conduit" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="82" width="70" height="22"/>
+                                                <rect key="frame" x="0.0" y="82" width="70" height="3.5"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="filled" title="Follow" cornerStyle="capsule">
                                                     <fontDescription key="titleFontDescription" name="Heebo-Regular" family="Heebo" pointSize="12"/>
@@ -290,16 +288,16 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="q9I-iB-d03">
-                                        <rect key="frame" x="90" y="0.0" width="254" height="106"/>
+                                        <rect key="frame" x="90" y="0.0" width="254" height="85.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Ikroop Singh Kalsi" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hMd-ri-eFR">
-                                                <rect key="frame" x="0.0" y="0.0" width="254" height="34"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="254" height="13.5"/>
                                                 <fontDescription key="fontDescription" name="Heebo-Regular_Bold" family="Heebo" pointSize="23"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CWz-0r-NNV">
-                                                <rect key="frame" x="0.0" y="34" width="254" height="72"/>
+                                                <rect key="frame" x="0.0" y="13.5" width="254" height="72"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="72" id="1I7-Vj-2Gv"/>
@@ -315,7 +313,7 @@
                                 </subviews>
                             </stackView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="UEA-m4-zpR">
-                                <rect key="frame" x="20" y="228" width="374" height="32"/>
+                                <rect key="frame" x="20" y="259" width="374" height="1"/>
                                 <segments>
                                     <segment title="Articles"/>
                                     <segment title="Favorited"/>
@@ -392,9 +390,6 @@
             <size key="intrinsicContentSize" width="19" height="20"/>
         </designable>
     </designables>
-    <inferredMetricsTieBreakers>
-        <segue reference="vc3-Bm-1RL"/>
-    </inferredMetricsTieBreakers>
     <resources>
         <image name="house" catalog="system" width="128" height="106"/>
         <image name="house.fill" catalog="system" width="128" height="106"/>

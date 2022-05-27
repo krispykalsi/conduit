@@ -43,17 +43,6 @@ class FeedViewController: UIViewController {
         presenter.feedView = self
         presenter.loadGlobalFeed()
     }
-    
-    // MARK: - Navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        switch (NavigationSegue(rawValue: segue.identifier ?? "")) {
-        case .feedToArticle:
-            let article = sender as! Article
-            let vc = segue.destination as! ArticleViewController
-            vc.article = article
-        default: break
-        }
-    }
 }
 
 extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
@@ -129,6 +118,6 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: getSegue(.feedToArticle), sender: articles[indexPath.row])
+        Router.shared.navigate(from: self, to: .articleView(articles[indexPath.row]))
     }
 }

@@ -49,7 +49,7 @@
 		08EB0B21283EAC1E008E976F /* HTTPService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EB0B20283EAC1E008E976F /* HTTPService.swift */; };
 		08EB0B24283ECDCF008E976F /* AuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EB0B23283ECDCF008E976F /* AuthError.swift */; };
 		08EB0B26283ECDE1008E976F /* DataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EB0B25283ECDE1008E976F /* DataError.swift */; };
-		08EB0B2C283ECF13008E976F /* NavigationSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EB0B2B283ECF13008E976F /* NavigationSegue.swift */; };
+		08FB01CB28410E3800B65276 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FB01CA28410E3800B65276 /* Router.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -116,7 +116,7 @@
 		08EB0B20283EAC1E008E976F /* HTTPService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPService.swift; sourceTree = "<group>"; };
 		08EB0B23283ECDCF008E976F /* AuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthError.swift; sourceTree = "<group>"; };
 		08EB0B25283ECDE1008E976F /* DataError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataError.swift; sourceTree = "<group>"; };
-		08EB0B2B283ECF13008E976F /* NavigationSegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationSegue.swift; sourceTree = "<group>"; };
+		08FB01CA28410E3800B65276 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -302,9 +302,9 @@
 				08378B27283638AC0095FD88 /* Model */,
 				0834845D28357D7100296543 /* View */,
 				0893EA892837D5BE00C4BF4A /* Controller */,
+				0893EA7D2836D10F00C4BF4A /* Router */,
 				0840F89A283436B2009210E5 /* Main.storyboard */,
 				0840F89F283436B5009210E5 /* LaunchScreen.storyboard */,
-				0893EA7D2836D10F00C4BF4A /* Router */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -329,7 +329,7 @@
 		0893EA7D2836D10F00C4BF4A /* Router */ = {
 			isa = PBXGroup;
 			children = (
-				08EB0B2B283ECF13008E976F /* NavigationSegue.swift */,
+				08FB01CA28410E3800B65276 /* Router.swift */,
 			);
 			path = Router;
 			sourceTree = "<group>";
@@ -540,10 +540,10 @@
 				0893EAAF283AE66A00C4BF4A /* ProfileViewController.swift in Sources */,
 				08671A09283E544D00B52A7E /* DataSource.swift in Sources */,
 				084E34232840F42A006F78D5 /* CachedImageView.swift in Sources */,
-				08EB0B2C283ECF13008E976F /* NavigationSegue.swift in Sources */,
 				0893EA932837E52A00C4BF4A /* FeedView.swift in Sources */,
 				08378B2C283656D70095FD88 /* ArticleTableViewCell.swift in Sources */,
 				08EB0B24283ECDCF008E976F /* AuthError.swift in Sources */,
+				08FB01CB28410E3800B65276 /* Router.swift in Sources */,
 				0834845B2835776700296543 /* UIMaterialChip.swift in Sources */,
 				08671A11283E6C0800B52A7E /* ProfileView.swift in Sources */,
 				08EB0B1C283E943C008E976F /* ProfileModel.swift in Sources */,

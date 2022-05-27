@@ -13,8 +13,8 @@ class ArticleViewController: UIViewController {
     @IBOutlet weak var authorImageView: CircularImageView!
     @IBOutlet weak var articleTitleLabel: UILabel!
     @IBOutlet weak var articleBodyTextView: UITextView!
-        
-    var article: Article?
+
+    var article: Article!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,8 +22,7 @@ class ArticleViewController: UIViewController {
         populateArticleValues()
     }
     
-    func populateArticleValues() {
-        guard let article = article else { return }
+    private func populateArticleValues() {
         authorNameLabel.text = article.author.username
         authorImageView.loadImage(fromUrl: article.author.image)
         dateCreatedLabel.text = DateFormatter.localizedString(from: article.createdAt, dateStyle: .medium, timeStyle: .none)
@@ -32,22 +31,10 @@ class ArticleViewController: UIViewController {
     }
     
     @IBAction func onProfileTapped(_ sender: UITapGestureRecognizer) {
-        guard let article = article else { return }
-        performSegue(withIdentifier: getSegue(.articleToProfile), sender: article.author.username)
+        Router.shared.navigate(from: self, to: .profileView(article.author))
     }
     
     @IBAction func onFollowPressed(_ sender: UIButton) {
         
-    }
-    
-    // MARK: - Navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        switch(NavigationSegue(rawValue: segue.identifier ?? "")) {
-        case .articleToProfile:
-            let name = sender as! String
-            let vc = segue.destination as! ProfileViewController
-            vc.username = name
-        default: break
-        }
     }
 }

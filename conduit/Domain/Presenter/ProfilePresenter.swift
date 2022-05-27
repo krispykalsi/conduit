@@ -9,5 +9,5 @@
     var profileView: ProfileView? { get set }
     
     func fetchCurrentUserProfileData()
-    func fetchProfileData(with username: String)
+    func fetchArticleData(for username: String)
 }

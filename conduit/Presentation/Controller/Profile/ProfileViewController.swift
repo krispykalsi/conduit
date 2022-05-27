@@ -18,19 +18,20 @@ class ProfileViewController: UIViewController {
     
     private let presenter = ProfileModel.shared
     
-    var username: String?
+    var profile: Profile!
+    var isOwnProfile = true
     
     private let userArticlesManager = ArticlesManager(showAuthorDetails: false)
     private let favoriteArticlesManager = ArticlesManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        userDetailPagesScrollView.delegate = self
-        setupArticleTableViews()
+        setupArticleViews()
         setupPresenter()
     }
     
-    private func setupArticleTableViews() {
+    private func setupArticleViews() {
+        userDetailPagesScrollView.delegate = self
         userArticlesTableView.delegate = userArticlesManager
         userArticlesTableView.dataSource = userArticlesManager
         favoriteArticlesTableView.delegate = favoriteArticlesManager
@@ -44,11 +45,18 @@ class ProfileViewController: UIViewController {
     
     private func setupPresenter() {
         presenter.profileView = self
-        if let username = username {
-            presenter.fetchProfileData(with: username)
-        } else {
+        if isOwnProfile {
             presenter.fetchCurrentUserProfileData()
+        } else {
+            populateValues(of: profile)
+            presenter.fetchArticleData(for: profile.username)
         }
+    }
+    
+    private func populateValues(of profile: Profile) {
+        nameLabel.text = profile.username
+        bioTextView.text = profile.bio
+        userImageView.loadImage(fromUrl: profile.image)
     }
 }
 
@@ -83,9 +91,7 @@ extension ProfileViewController: ProfileView {
     
     private func handleProfileDataState(_ state: DataState<Profile>) {
         if case .loaded(let profile) = state {
-            nameLabel.text = profile.username
-            bioTextView.text = profile.bio
-            userImageView.loadImage(fromUrl: profile.image)
+            populateValues(of: profile)
         }
     }
     
