@@ -30,7 +30,7 @@ class Router {
             vc.profile = profile
             viewController = vc
         case .loginView:
-            let vc: LoginViewController = instantiateViewController()
+            let vc: AuthViewController = instantiateViewController()
             viewController = vc
         }
         return viewController
@@ -51,6 +51,6 @@ class Router {
 
 enum DestinationView {
     case articleView(Article)
-    case profileView(Profile)
+    case profileView(Profile?)
     case loginView
 }
