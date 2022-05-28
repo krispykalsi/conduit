@@ -39,6 +39,9 @@
 		08671A0F283E6B6B00B52A7E /* ProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08671A0E283E6B6B00B52A7E /* ProfilePresenter.swift */; };
 		08671A11283E6C0800B52A7E /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08671A10283E6C0800B52A7E /* ProfileView.swift */; };
 		0876DEFB28361C0300F8A4D8 /* DataState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0876DEFA28361C0300F8A4D8 /* DataState.swift */; };
+		0886BCFE2841A6E5006D20A6 /* LoginPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0886BCFD2841A6E5006D20A6 /* LoginPresenter.swift */; };
+		0886BD002841A703006D20A6 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0886BCFF2841A703006D20A6 /* LoginView.swift */; };
+		0889184928418AA8003513C4 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0889184828418AA8003513C4 /* LoginViewController.swift */; };
 		0893EA7C2836CD3700C4BF4A /* ArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0893EA7B2836CD3700C4BF4A /* ArticleViewController.swift */; };
 		0893EA902837E37700C4BF4A /* HomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0893EA8F2837E37700C4BF4A /* HomePresenter.swift */; };
 		0893EA932837E52A00C4BF4A /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0893EA922837E52A00C4BF4A /* FeedView.swift */; };
@@ -106,6 +109,9 @@
 		08671A0E283E6B6B00B52A7E /* ProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePresenter.swift; sourceTree = "<group>"; };
 		08671A10283E6C0800B52A7E /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		0876DEFA28361C0300F8A4D8 /* DataState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataState.swift; sourceTree = "<group>"; };
+		0886BCFD2841A6E5006D20A6 /* LoginPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPresenter.swift; sourceTree = "<group>"; };
+		0886BCFF2841A703006D20A6 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		0889184828418AA8003513C4 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		0893EA7B2836CD3700C4BF4A /* ArticleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleViewController.swift; sourceTree = "<group>"; };
 		0893EA8F2837E37700C4BF4A /* HomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePresenter.swift; sourceTree = "<group>"; };
 		0893EA922837E52A00C4BF4A /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
@@ -326,6 +332,14 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
+		0889184728418A54003513C4 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				0889184828418AA8003513C4 /* LoginViewController.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
 		0893EA7D2836D10F00C4BF4A /* Router */ = {
 			isa = PBXGroup;
 			children = (
@@ -337,6 +351,7 @@
 		0893EA892837D5BE00C4BF4A /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				0889184728418A54003513C4 /* Login */,
 				08671A0C283E6AB100B52A7E /* Home */,
 				08671A0D283E6ABB00B52A7E /* Profile */,
 			);
@@ -357,6 +372,7 @@
 			children = (
 				0893EA8F2837E37700C4BF4A /* HomePresenter.swift */,
 				08671A0E283E6B6B00B52A7E /* ProfilePresenter.swift */,
+				0886BCFD2841A6E5006D20A6 /* LoginPresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -366,6 +382,7 @@
 			children = (
 				0893EA922837E52A00C4BF4A /* FeedView.swift */,
 				08671A10283E6C0800B52A7E /* ProfileView.swift */,
+				0886BCFF2841A703006D20A6 /* LoginView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -539,11 +556,14 @@
 				0840F8CF28344016009210E5 /* Article.swift in Sources */,
 				0893EAAF283AE66A00C4BF4A /* ProfileViewController.swift in Sources */,
 				08671A09283E544D00B52A7E /* DataSource.swift in Sources */,
+				0886BCFE2841A6E5006D20A6 /* LoginPresenter.swift in Sources */,
+				0886BD002841A703006D20A6 /* LoginView.swift in Sources */,
 				084E34232840F42A006F78D5 /* CachedImageView.swift in Sources */,
 				0893EA932837E52A00C4BF4A /* FeedView.swift in Sources */,
 				08378B2C283656D70095FD88 /* ArticleTableViewCell.swift in Sources */,
 				08EB0B24283ECDCF008E976F /* AuthError.swift in Sources */,
 				08FB01CB28410E3800B65276 /* Router.swift in Sources */,
+				0889184928418AA8003513C4 /* LoginViewController.swift in Sources */,
 				0834845B2835776700296543 /* TagCollectionViewCell.swift in Sources */,
 				08671A11283E6C0800B52A7E /* ProfileView.swift in Sources */,
 				08EB0B1C283E943C008E976F /* ProfileModel.swift in Sources */,

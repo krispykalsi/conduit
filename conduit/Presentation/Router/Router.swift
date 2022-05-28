@@ -16,23 +16,41 @@ class Router {
         let storyboardId = String(describing: T.self)
         return storyboard.instantiateViewController(withIdentifier: storyboardId) as! T
     }
-        
-    func navigate(from controller: UIViewController, to destinationView: DestinationView) {
+    
+    private func initialize(destinationView: DestinationView) -> UIViewController {
+        var viewController: UIViewController
         switch(destinationView) {
         case .articleView(let article):
             let vc: ArticleViewController = instantiateViewController()
             vc.article = article
-            controller.navigationController?.pushViewController(vc, animated: true)
+            viewController = vc
         case .profileView(let profile):
             let vc: ProfileViewController = instantiateViewController()
             vc.isOwnProfile = false
             vc.profile = profile
-            controller.navigationController?.pushViewController(vc, animated: true)
+            viewController = vc
+        case .loginView:
+            let vc: LoginViewController = instantiateViewController()
+            viewController = vc
         }
+        return viewController
+    }
+        
+    func navigate(from controller: UIViewController, to destinationView: DestinationView) {
+        let vc = initialize(destinationView: destinationView)
+        controller.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func replace(_ controller: UIViewController, with destinationView: DestinationView) {
+        let vc = initialize(destinationView: destinationView)
+        guard var vcs = controller.navigationController?.viewControllers else { return }
+        vcs[vcs.count-1] = vc
+        controller.navigationController?.setViewControllers(vcs, animated: true)
     }
 }
 
 enum DestinationView {
     case articleView(Article)
     case profileView(Profile)
+    case loginView
 }

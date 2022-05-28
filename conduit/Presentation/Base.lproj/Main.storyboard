@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="R6S-HD-ix1">
-    <device id="retina6_1" orientation="portrait" appearance="dark"/>
+    <device id="retina4_0" orientation="portrait" appearance="dark"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Image references" minToolsVersion="12.0"/>
@@ -43,7 +43,7 @@
                         <imageReference key="selectedImage" image="house.fill" catalog="system" symbolScale="default"/>
                     </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="zwe-rw-hBf">
-                        <rect key="frame" x="0.0" y="44" width="414" height="97.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="97.5"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <textAttributes key="largeTitleTextAttributes">
                             <fontDescription key="fontDescription" name="Heebo-Regular_Bold" family="Heebo" pointSize="36"/>
@@ -62,11 +62,11 @@
             <objects>
                 <viewController storyboardIdentifier="FeedViewController" id="k8O-v7-1YI" customClass="FeedViewController" customModule="conduit" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="YVR-Qx-k97">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="54I-Ar-UBa">
-                                <rect key="frame" x="0.0" y="153.5" width="414" height="70"/>
+                                <rect key="frame" x="0.0" y="109.5" width="320" height="70"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="iaa-Zu-mcm"/>
@@ -80,7 +80,7 @@
                                 <cells/>
                             </collectionView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="IPf-7q-QeP">
-                                <rect key="frame" x="8" y="223.5" width="398" height="589.5"/>
+                                <rect key="frame" x="8" y="179.5" width="304" height="339.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <sections/>
                             </tableView>
@@ -112,11 +112,11 @@
             <objects>
                 <viewController storyboardIdentifier="ArticleViewController" id="Scd-Qt-qqd" customClass="ArticleViewController" customModule="conduit" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MEX-r9-hUI">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="QBl-Ox-xd6">
-                                <rect key="frame" x="20" y="44" width="151.5" height="60"/>
+                                <rect key="frame" x="20" y="0.0" width="151.5" height="60"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="WU3-xo-o0P" customClass="CircularImageView" customModule="conduit" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="6.5" width="50" height="47.5"/>
@@ -173,7 +173,7 @@
                                 </constraints>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eDI-Zg-eOP">
-                                <rect key="frame" x="20" y="120" width="366" height="52"/>
+                                <rect key="frame" x="20" y="76" width="272.5" height="52"/>
                                 <attributedString key="attributedText">
                                     <fragment content="How I built my tech startup as a solo developer">
                                         <attributes>
@@ -186,7 +186,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="U68-ak-FtY">
-                                <rect key="frame" x="20" y="184" width="374" height="678"/>
+                                <rect key="frame" x="20" y="140" width="280" height="428"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <color key="textColor" systemColor="labelColor"/>
@@ -242,7 +242,7 @@
                         <imageReference key="selectedImage" image="person.crop.circle.fill" catalog="system" symbolScale="default"/>
                     </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="RkP-Ym-IEw">
-                        <rect key="frame" x="0.0" y="44" width="414" height="97.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="97.5"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <textAttributes key="largeTitleTextAttributes">
                             <fontDescription key="fontDescription" name="Heebo-Regular_Bold" family="Heebo" pointSize="36"/>
@@ -261,14 +261,14 @@
             <objects>
                 <viewController storyboardIdentifier="ProfileViewController" id="9zu-kX-soq" customClass="ProfileViewController" customModule="conduit" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9oU-TR-zHU">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="252" alignment="top" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="hcq-KU-uxZ">
-                                <rect key="frame" x="20" y="153.5" width="344" height="85.5"/>
+                                <rect key="frame" x="20" y="109.5" width="280" height="82"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="1LL-V2-tnc">
-                                        <rect key="frame" x="0.0" y="0.0" width="70" height="85.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="70" height="82"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="7LK-tw-zeV" customClass="CircularImageView" customModule="conduit" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="1.5" width="70" height="67.5"/>
@@ -278,7 +278,7 @@
                                                 </constraints>
                                             </imageView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gcu-c5-cWM" customClass="FollowButton" customModule="conduit" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="82" width="70" height="3.5"/>
+                                                <rect key="frame" x="0.0" y="82" width="70" height="0.0"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="filled" title="Follow" cornerStyle="capsule">
                                                     <fontDescription key="titleFontDescription" name="Heebo-Regular" family="Heebo" pointSize="12"/>
@@ -288,16 +288,16 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="q9I-iB-d03">
-                                        <rect key="frame" x="90" y="0.0" width="254" height="85.5"/>
+                                        <rect key="frame" x="90" y="0.0" width="190" height="82"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Ikroop Singh Kalsi" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hMd-ri-eFR">
-                                                <rect key="frame" x="0.0" y="0.0" width="254" height="13.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="190" height="10"/>
                                                 <fontDescription key="fontDescription" name="Heebo-Regular_Bold" family="Heebo" pointSize="23"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CWz-0r-NNV">
-                                                <rect key="frame" x="0.0" y="13.5" width="254" height="72"/>
+                                                <rect key="frame" x="0.0" y="10" width="190" height="72"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="72" id="1I7-Vj-2Gv"/>
@@ -313,7 +313,7 @@
                                 </subviews>
                             </stackView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="UEA-m4-zpR">
-                                <rect key="frame" x="20" y="259" width="374" height="1"/>
+                                <rect key="frame" x="20" y="211.5" width="280" height="1"/>
                                 <segments>
                                     <segment title="Articles"/>
                                     <segment title="Favorited"/>
@@ -323,17 +323,17 @@
                                 </connections>
                             </segmentedControl>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="249" bounces="NO" pagingEnabled="YES" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ve3-xQ-wfd">
-                                <rect key="frame" x="0.0" y="279" width="414" height="534"/>
+                                <rect key="frame" x="0.0" y="231.5" width="320" height="287.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="ag6-Qc-ecB">
-                                        <rect key="frame" x="0.0" y="0.0" width="828" height="534"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="640" height="287.5"/>
                                         <subviews>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="cVg-15-xh3">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="534"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="287.5"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             </tableView>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="cj6-vk-i2Q">
-                                                <rect key="frame" x="414" y="0.0" width="414" height="534"/>
+                                                <rect key="frame" x="320" y="0.0" width="320" height="287.5"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             </tableView>
                                         </subviews>
@@ -379,7 +379,124 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Udr-jX-GT6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="837.68115942028987" y="347.54464285714283"/>
+            <point key="canvasLocation" x="804" y="348"/>
+        </scene>
+        <!--Login View Controller-->
+        <scene sceneID="D1N-xE-zAm">
+            <objects>
+                <viewController storyboardIdentifier="LoginViewController" id="dpk-NP-vSB" customClass="LoginViewController" customModule="conduit" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="x4J-gQ-RBZ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" keyboardDismissMode="onDrag" translatesAutoresizingMaskIntoConstraints="NO" id="2bK-q2-OBP">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5fK-XV-ItB" userLabel="Content View">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="ugC-pJ-aw1">
+                                                <rect key="frame" x="36" y="24" width="248" height="155"/>
+                                                <subviews>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="nxE-X6-Lpg">
+                                                        <rect key="frame" x="0.0" y="0.0" width="248" height="36"/>
+                                                        <fontDescription key="fontDescription" name="Heebo-Regular" family="Heebo" pointSize="18"/>
+                                                        <textInputTraits key="textInputTraits" textContentType="username"/>
+                                                        <connections>
+                                                            <action selector="editingDidEnd:" destination="dpk-NP-vSB" eventType="editingDidEnd" id="U15-3d-Onq"/>
+                                                        </connections>
+                                                    </textField>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email Address" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="hG5-Yz-d4W">
+                                                        <rect key="frame" x="0.0" y="60" width="248" height="36"/>
+                                                        <fontDescription key="fontDescription" name="Heebo-Regular" family="Heebo" pointSize="18"/>
+                                                        <textInputTraits key="textInputTraits" textContentType="email"/>
+                                                        <connections>
+                                                            <action selector="editingDidEnd:" destination="dpk-NP-vSB" eventType="editingDidEnd" id="RS2-7i-j8Q"/>
+                                                        </connections>
+                                                    </textField>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="A0U-FR-5B7">
+                                                        <rect key="frame" x="0.0" y="120" width="248" height="35"/>
+                                                        <fontDescription key="fontDescription" name="Heebo-Regular" family="Heebo" pointSize="18"/>
+                                                        <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
+                                                        <connections>
+                                                            <action selector="editingDidEnd:" destination="dpk-NP-vSB" eventType="editingDidEnd" id="g0V-or-D2j"/>
+                                                        </connections>
+                                                    </textField>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="NTS-EB-qEC">
+                                                <rect key="frame" x="90.5" y="211" width="139" height="79.5"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b6i-tH-oiQ">
+                                                        <rect key="frame" x="0.0" y="0.0" width="139" height="31"/>
+                                                        <state key="normal" title="Button"/>
+                                                        <buttonConfiguration key="configuration" style="plain" title="Have an account?"/>
+                                                        <connections>
+                                                            <action selector="toggleLoginRegister" destination="dpk-NP-vSB" eventType="touchUpInside" id="vNb-pS-ohb"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YQ0-4b-Sc6">
+                                                        <rect key="frame" x="24" y="39" width="91.5" height="40.5"/>
+                                                        <state key="normal" title="Button"/>
+                                                        <buttonConfiguration key="configuration" style="filled" title="Register" cornerStyle="large" titleAlignment="center">
+                                                            <fontDescription key="titleFontDescription" name="Heebo-Regular_Medium" family="Heebo" pointSize="18"/>
+                                                        </buttonConfiguration>
+                                                        <connections>
+                                                            <action selector="onLoginOrRegisterTapped" destination="dpk-NP-vSB" eventType="touchUpInside" id="fE7-IV-UMT"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <gestureRecognizers/>
+                                        <constraints>
+                                            <constraint firstItem="NTS-EB-qEC" firstAttribute="top" secondItem="ugC-pJ-aw1" secondAttribute="bottom" constant="32" id="Cgd-tZ-MSm"/>
+                                            <constraint firstAttribute="trailing" secondItem="ugC-pJ-aw1" secondAttribute="trailing" constant="36" id="f1b-SW-9ZA"/>
+                                            <constraint firstItem="ugC-pJ-aw1" firstAttribute="leading" secondItem="5fK-XV-ItB" secondAttribute="leading" constant="36" id="fz5-fF-Ts8"/>
+                                            <constraint firstItem="NTS-EB-qEC" firstAttribute="centerX" secondItem="5fK-XV-ItB" secondAttribute="centerX" id="kYy-2R-IHo"/>
+                                            <constraint firstItem="ugC-pJ-aw1" firstAttribute="top" secondItem="5fK-XV-ItB" secondAttribute="top" constant="24" id="mzW-d8-ylH"/>
+                                        </constraints>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="Zwk-qk-al9" appends="YES" id="ef5-yF-746"/>
+                                        </connections>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="5fK-XV-ItB" firstAttribute="width" secondItem="2bK-q2-OBP" secondAttribute="width" id="0zm-Hf-7Kx"/>
+                                    <constraint firstItem="5fK-XV-ItB" firstAttribute="top" secondItem="2bK-q2-OBP" secondAttribute="top" id="NqF-28-rmI"/>
+                                    <constraint firstItem="5fK-XV-ItB" firstAttribute="height" secondItem="2bK-q2-OBP" secondAttribute="height" id="PgM-rb-Rvd"/>
+                                    <constraint firstItem="5fK-XV-ItB" firstAttribute="bottom" secondItem="2bK-q2-OBP" secondAttribute="bottom" id="XAe-0s-TvH"/>
+                                    <constraint firstItem="5fK-XV-ItB" firstAttribute="leading" secondItem="2bK-q2-OBP" secondAttribute="leading" id="fcV-lJ-17l"/>
+                                    <constraint firstItem="5fK-XV-ItB" firstAttribute="trailing" secondItem="2bK-q2-OBP" secondAttribute="trailing" id="stH-AX-FRR"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="ONh-8Z-U0K"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="2bK-q2-OBP" firstAttribute="leading" secondItem="ONh-8Z-U0K" secondAttribute="leading" id="Lpf-7p-GdP"/>
+                            <constraint firstItem="2bK-q2-OBP" firstAttribute="trailing" secondItem="ONh-8Z-U0K" secondAttribute="trailing" id="c9G-1Y-yGO"/>
+                            <constraint firstItem="2bK-q2-OBP" firstAttribute="bottom" secondItem="ONh-8Z-U0K" secondAttribute="bottom" id="cgI-7D-VSD"/>
+                            <constraint firstItem="2bK-q2-OBP" firstAttribute="top" secondItem="ONh-8Z-U0K" secondAttribute="top" id="e0v-lm-wQq"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="changeToLoginOrRegisterButton" destination="b6i-tH-oiQ" id="Uxm-qv-URH"/>
+                        <outlet property="emailField" destination="hG5-Yz-d4W" id="EPu-Fv-xMa"/>
+                        <outlet property="loginOrRegisterButton" destination="YQ0-4b-Sc6" id="mpf-9F-XfZ"/>
+                        <outlet property="passwordField" destination="A0U-FR-5B7" id="ZWd-Z1-1qO"/>
+                        <outlet property="usernameField" destination="nxE-X6-Lpg" id="3Pv-3u-XB4"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Uph-Bz-qXz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="Zwk-qk-al9">
+                    <connections>
+                        <action selector="didTapOutsideTextField" destination="dpk-NP-vSB" id="HHE-ps-AtK"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="1618.125" y="347.53521126760563"/>
         </scene>
     </scenes>
     <designables>

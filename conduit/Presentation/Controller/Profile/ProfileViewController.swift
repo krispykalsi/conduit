@@ -92,7 +92,7 @@ extension ProfileViewController: ProfileView {
     }
     
     func profilePresenterRequiresAuth() {
-        debugPrint("bro login karle")
+        Router.shared.replace(self, with: .loginView)
     }
     
     private func handleProfileDataState(_ state: DataState<Profile>) {
