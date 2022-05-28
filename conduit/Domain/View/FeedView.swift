@@ -6,7 +6,7 @@
 //
 
 @MainActor protocol FeedView: AnyObject {
-    func feedView(didUpdateStateOf data: FeedViewData)
+    func feedPresenter(didUpdateStateOf data: FeedViewData)
 }
 
 enum FeedViewData {

@@ -69,7 +69,7 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
 }
 
 extension FeedViewController: FeedView {
-    func feedView(didUpdateStateOf data: FeedViewData) {
+    func feedPresenter(didUpdateStateOf data: FeedViewData) {
         switch(data) {
         case .tags(let s):
             handleTagsDataState(s)

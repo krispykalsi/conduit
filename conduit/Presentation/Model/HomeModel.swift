@@ -23,8 +23,8 @@ final class HomeModel {
 
 extension HomeModel: HomePresenter {
     func loadGlobalFeed() {
-        feedView?.feedView(didUpdateStateOf: .tags(.loading))
-        feedView?.feedView(didUpdateStateOf: .articles(.loading))
+        feedView?.feedPresenter(didUpdateStateOf: .tags(.loading))
+        feedView?.feedPresenter(didUpdateStateOf: .articles(.loading))
         Task {
             let feedParams = GlobalFeedParams(limit: articlesPagingLimit, offset: 0)
             async let newTags = articleInteractor.fetchTags()
@@ -32,30 +32,30 @@ extension HomeModel: HomePresenter {
             
             do {
                 tags = try await newTags
-                feedView?.feedView(didUpdateStateOf: .tags(.loaded(tags)))
+                feedView?.feedPresenter(didUpdateStateOf: .tags(.loaded(tags)))
             } catch {
-                feedView?.feedView(didUpdateStateOf: .tags(.error(error)))
+                feedView?.feedPresenter(didUpdateStateOf: .tags(.error(error)))
             }
             
             do {
                 articles = try await newArticles
-                feedView?.feedView(didUpdateStateOf: .articles(.loaded(articles)))
+                feedView?.feedPresenter(didUpdateStateOf: .articles(.loaded(articles)))
             } catch {
-                feedView?.feedView(didUpdateStateOf: .articles(.error(error)))
+                feedView?.feedPresenter(didUpdateStateOf: .articles(.error(error)))
             }
         }
     }
     
     func loadMoreArticles() {
-        feedView?.feedView(didUpdateStateOf: .articles(.loading))
+        feedView?.feedPresenter(didUpdateStateOf: .articles(.loading))
         Task {
             let feedParams = GlobalFeedParams(limit: articlesPagingLimit, offset: articles.count)
             do {
                 let newArticles = try await articleInteractor.fetchGlobalFeed(with: feedParams)
                 articles.append(contentsOf: newArticles)
-                feedView?.feedView(didUpdateStateOf: .articles(.loaded(articles)))
+                feedView?.feedPresenter(didUpdateStateOf: .articles(.loaded(articles)))
             } catch {
-                feedView?.feedView(didUpdateStateOf: .articles(.error(error)))
+                feedView?.feedPresenter(didUpdateStateOf: .articles(.error(error)))
             }
         }
     }
