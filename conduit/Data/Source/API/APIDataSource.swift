@@ -7,7 +7,7 @@
 
 import Foundation
 
-class DataSource {
+class APIDataSource {
     private static let baseUrl = URL(string: "https://api.realworld.io/api")!
     private let userEndpoint = baseUrl.appendingPathComponent("user")
     private let articlesEndpoint = baseUrl.appendingPathComponent("articles")
@@ -22,32 +22,33 @@ class DataSource {
         self.jsonService = jsonService
     }
     
-    static let shared = DataSource(httpService: HTTPClient.shared,
+    static let shared = APIDataSource(httpService: HTTPClient.shared,
                                    jsonService: JSONParser.shared)
     
-    private func handleBadResponse(_ response: URLResponse, withData data: Data) throws {
-        if let httpResponse = response as? HTTPURLResponse {
-            switch(httpResponse.statusCode) {
-            case 200..<300: debugPrint("sick")
-            default: debugPrint("Response Code: \(httpResponse.statusCode)")
-                do {
-                    let decodedResponse: GenericErrorResponse = try jsonService.decode(data)
-                    debugPrint(decodedResponse.getErrors())
-                } catch let error as DecodingError {
-                    debugPrint(error.localizedDescription)
-                    debugPrint(data)
-                }
-            }
+    private func throwForBadResponse(_ response: URLResponse, _ data: Data) throws {
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw APIError.unknown(msg: "Response is not HTTP? \n \(response.description)")
+        }
+        if 200 ..< 300 ~= httpResponse.statusCode {
+            return
+        }
+        do {
+            let decodedResponse: GenericErrorResponse = try jsonService.decode(data)
+            throw APIError.fromBackend(errors: decodedResponse.getErrors())
+        } catch let error as DecodingError {
+            debugPrint(error)
+            throw APIError.non200Response(code: httpResponse.statusCode,
+                                          msg: httpResponse.description)
         }
     }
 }
 
 // MARK: ProfileInteractor
-extension DataSource: ProfileInteractor {
+extension APIDataSource: ProfileInteractor {
     func fetchCurrentUser() async throws -> User {
         let req = URLRequest(url: userEndpoint, method: .get)
         let (data, res) = try await httpService.send(req)
-        try handleBadResponse(res, withData: data)
+        try throwForBadResponse(res, data)
         let decodedResponse: UserResponse = try jsonService.decode(data)
         return decodedResponse.user
     }
@@ -57,7 +58,7 @@ extension DataSource: ProfileInteractor {
         var req = URLRequest(url: userEndpoint, method: .put)
         req.httpBody = try jsonService.encode(body)
         let (data, res) = try await httpService.send(req)
-        try handleBadResponse(res, withData: data)
+        try throwForBadResponse(res, data)
         let decodedResponse: UserResponse = try jsonService.decode(data)
         return decodedResponse.user
     }
@@ -66,7 +67,7 @@ extension DataSource: ProfileInteractor {
         let url = profilesEndpoint.appendingPathComponent(username)
         let req = URLRequest(url: url, method: .get)
         let (data, res) = try await httpService.send(req)
-        try handleBadResponse(res, withData: data)
+        try throwForBadResponse(res, data)
         let decodedResponse: ProfileResponse = try jsonService.decode(data)
         return decodedResponse.profile
     }
@@ -75,7 +76,7 @@ extension DataSource: ProfileInteractor {
         let url = profilesEndpoint.appendingPathComponent(username + "/follow")
         let req = URLRequest(url: url, method: .post)
         let (data, res) = try await httpService.send(req)
-        try handleBadResponse(res, withData: data)
+        try throwForBadResponse(res, data)
         let decodedResponse: ProfileResponse = try jsonService.decode(data)
         return decodedResponse.profile
     }
@@ -84,14 +85,14 @@ extension DataSource: ProfileInteractor {
         let url = profilesEndpoint.appendingPathComponent(username + "/follow")
         let req = URLRequest(url: url, method: .delete)
         let (data, res) = try await httpService.send(req)
-        try handleBadResponse(res, withData: data)
+        try throwForBadResponse(res, data)
         let decodedResponse: ProfileResponse = try jsonService.decode(data)
         return decodedResponse.profile
     }
 }
 
 // MARK: ArticleInteractor
-extension DataSource: ArticleInteractor {
+extension APIDataSource: ArticleInteractor {
     // MARK: FEED
     func fetchUserFeed(with params: UserFeedParams) async throws -> [Article] {
         let url = articlesEndpoint.appendingPathComponent("feed")
@@ -101,7 +102,7 @@ extension DataSource: ArticleInteractor {
         }
         let req = URLRequest(url: urlWithParams.url!, method: .get)
         let (data, res) = try await httpService.send(req)
-        try handleBadResponse(res, withData: data)
+        try throwForBadResponse(res, data)
         let decodedResponse: MultipleArticlesResponse = try jsonService.decode(data)
         return decodedResponse.articles
     }
@@ -113,7 +114,7 @@ extension DataSource: ArticleInteractor {
         }
         let req = URLRequest(url: urlWithParams.url!, method: .get)
         let (data, res) = try await httpService.send(req)
-        try handleBadResponse(res, withData: data)
+        try throwForBadResponse(res, data)
         let decodedResponse: MultipleArticlesResponse = try jsonService.decode(data)
         return decodedResponse.articles
     }
@@ -124,7 +125,7 @@ extension DataSource: ArticleInteractor {
         let body = CreateArticleRequest(article: params)
         req.httpBody = try jsonService.encode(body)
         let (data, res) = try await httpService.send(req)
-        try handleBadResponse(res, withData: data)
+        try throwForBadResponse(res, data)
         let decodedResponse: SingleArticleResponse = try jsonService.decode(data)
         return decodedResponse.article
     }
@@ -133,7 +134,7 @@ extension DataSource: ArticleInteractor {
         let url = articlesEndpoint.appendingPathComponent(slug)
         let req = URLRequest(url: url, method: .get)
         let (data, res) = try await httpService.send(req)
-        try handleBadResponse(res, withData: data)
+        try throwForBadResponse(res, data)
         let decodedResponse: SingleArticleResponse = try jsonService.decode(data)
         return decodedResponse.article
     }
@@ -144,7 +145,7 @@ extension DataSource: ArticleInteractor {
         let body = UpdateArticleRequest(article: params)
         req.httpBody = try jsonService.encode(body)
         let (data, res) = try await httpService.send(req)
-        try handleBadResponse(res, withData: data)
+        try throwForBadResponse(res, data)
         let decodedResponse: SingleArticleResponse = try jsonService.decode(data)
         return decodedResponse.article
     }
@@ -153,7 +154,7 @@ extension DataSource: ArticleInteractor {
         let url = articlesEndpoint.appendingPathComponent(slug)
         let req = URLRequest(url: url, method: .delete)
         let (data, res) = try await httpService.send(req)
-        try handleBadResponse(res, withData: data)
+        try throwForBadResponse(res, data)
     }
     
     // MARK: COMMENTS
@@ -161,7 +162,7 @@ extension DataSource: ArticleInteractor {
         let url = articlesEndpoint.appendingPathComponent(slug + "/comments")
         let req = URLRequest(url: url, method: .get)
         let (data, res) = try await httpService.send(req)
-        try handleBadResponse(res, withData: data)
+        try throwForBadResponse(res, data)
         let decodedResponse: MultipleCommentsResponse = try jsonService.decode(data)
         return decodedResponse.comments
     }
@@ -172,7 +173,7 @@ extension DataSource: ArticleInteractor {
         let body = NewCommentRequest(withBody: body)
         req.httpBody = try jsonService.encode(body)
         let (data, res) = try await httpService.send(req)
-        try handleBadResponse(res, withData: data)
+        try throwForBadResponse(res, data)
         let decodedResponse: SingleCommentResponse = try jsonService.decode(data)
         return decodedResponse.comment
     }
@@ -181,7 +182,7 @@ extension DataSource: ArticleInteractor {
         let url = articlesEndpoint.appendingPathComponent( "\(slug)/comments/\(id)")
         let req = URLRequest(url: url, method: .delete)
         let (data, res) = try await httpService.send(req)
-        try handleBadResponse(res, withData: data)
+        try throwForBadResponse(res, data)
     }
     
     // MARK: FAVORITE
@@ -189,7 +190,7 @@ extension DataSource: ArticleInteractor {
         let url = articlesEndpoint.appendingPathComponent( "\(slug)/favorite")
         let req = URLRequest(url: url, method: .post)
         let (data, res) = try await httpService.send(req)
-        try handleBadResponse(res, withData: data)
+        try throwForBadResponse(res, data)
         let decodedResponse: SingleArticleResponse = try jsonService.decode(data)
         return decodedResponse.article
     }
@@ -198,7 +199,7 @@ extension DataSource: ArticleInteractor {
         let url = articlesEndpoint.appendingPathComponent( "\(slug)/favorite")
         let req = URLRequest(url: url, method: .delete)
         let (data, res) = try await httpService.send(req)
-        try handleBadResponse(res, withData: data)
+        try throwForBadResponse(res, data)
         let decodedResponse: SingleArticleResponse = try jsonService.decode(data)
         return decodedResponse.article
     }
@@ -207,7 +208,7 @@ extension DataSource: ArticleInteractor {
     func fetchTags() async throws -> [String] {
         let req = URLRequest(url: tagsEndpoint, method: .get)
         let (data, res) = try await httpService.send(req)
-        try handleBadResponse(res, withData: data)
+        try throwForBadResponse(res, data)
         let decodedResponse: TagResponse = try jsonService.decode(data)
         return decodedResponse.tags
     }

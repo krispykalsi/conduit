@@ -45,19 +45,20 @@ class AuthService {
                                                     jsonService: JSONParser.shared,
                                                     userDefaults: .standard)
     
-    private func handleBadResponse(_ response: URLResponse, withData data: Data) throws {
-        if let httpResponse = response as? HTTPURLResponse {
-            switch(httpResponse.statusCode) {
-            case 200..<300: debugPrint("sick")
-            default: debugPrint("Response Code: \(httpResponse.statusCode)")
-                do {
-                    let decodedResponse: GenericErrorResponse = try jsonService.decode(data)
-                    debugPrint(decodedResponse.getErrors())
-                } catch let error as DecodingError {
-                    debugPrint(error.localizedDescription)
-                    debugPrint(data)
-                }
-            }
+    private func throwForBadResponse(_ response: URLResponse, _ data: Data) throws {
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw APIError.unknown(msg: "Response is not HTTP? \n \(response.description)")
+        }
+        if 200 ..< 300 ~= httpResponse.statusCode {
+            return
+        }
+        do {
+            let decodedResponse: GenericErrorResponse = try jsonService.decode(data)
+            throw APIError.fromBackend(errors: decodedResponse.getErrors())
+        } catch let error as DecodingError {
+            debugPrint(error)
+            throw APIError.non200Response(code: httpResponse.statusCode,
+                                          msg: httpResponse.description)
         }
     }
 }
@@ -69,10 +70,9 @@ extension AuthService: AuthInteractor {
         var req = URLRequest(url: url, method: .post)
         req.httpBody = try jsonService.encode(body)
         let (data, res) = try await urlSession.data(for: req)
-        try handleBadResponse(res, withData: data)
+        try throwForBadResponse(res, data)
         let decodedResponse: UserResponse = try jsonService.decode(data)
-        self.authToken = decodedResponse.user.token
-        self.username = decodedResponse.user.username
+        cacheAuthDetails(for: decodedResponse.user)
         return decodedResponse.user
     }
     
@@ -81,11 +81,15 @@ extension AuthService: AuthInteractor {
         var req = URLRequest(url: AUTH_ENDPOINT, method: .post)
         req.httpBody = try jsonService.encode(body)
         let (data, res) = try await urlSession.data(for: req)
-        try handleBadResponse(res, withData: data)
+        try throwForBadResponse(res, data)
         let decodedResponse: UserResponse = try jsonService.decode(data)
-        self.authToken = decodedResponse.user.token
-        self.username = decodedResponse.user.username
+        cacheAuthDetails(for: decodedResponse.user)
         return decodedResponse.user
+    }
+    
+    private func cacheAuthDetails(for user: User) {
+        self.authToken = user.token
+        self.username = user.username
     }
     
     func logout() async throws {

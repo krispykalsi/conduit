@@ -16,7 +16,7 @@ final class HomeModel {
     private var articles: [Article] = []
     private let articlesPagingLimit = 10
     
-    static let shared = HomeModel(articleInteractor: DataSource.shared)
+    static let shared = HomeModel(articleInteractor: APIDataSource.shared)
     
     weak var feedView: FeedView?
 }
