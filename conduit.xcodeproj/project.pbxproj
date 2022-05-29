@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		081A715E28431AB200D7BD17 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081A715D28431AB200D7BD17 /* APIError.swift */; };
+		081A71602843FEC200D7BD17 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081A715F2843FEC200D7BD17 /* StringExtensions.swift */; };
 		081EFA9C284214FB004CAB1D /* AuthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081EFA9B284214FB004CAB1D /* AuthModel.swift */; };
 		081EFAA0284236E3004CAB1D /* TaskState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081EFA9F284236E3004CAB1D /* TaskState.swift */; };
 		081EFAA22842371A004CAB1D /* ValidationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081EFAA12842371A004CAB1D /* ValidationState.swift */; };
@@ -79,6 +80,7 @@
 
 /* Begin PBXFileReference section */
 		081A715D28431AB200D7BD17 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
+		081A715F2843FEC200D7BD17 /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		081EFA9B284214FB004CAB1D /* AuthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthModel.swift; sourceTree = "<group>"; };
 		081EFA9F284236E3004CAB1D /* TaskState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskState.swift; sourceTree = "<group>"; };
 		081EFAA12842371A004CAB1D /* ValidationState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationState.swift; sourceTree = "<group>"; };
@@ -211,6 +213,7 @@
 				0876DEFA28361C0300F8A4D8 /* DataState.swift */,
 				081EFA9F284236E3004CAB1D /* TaskState.swift */,
 				081EFAA12842371A004CAB1D /* ValidationState.swift */,
+				081A715F2843FEC200D7BD17 /* StringExtensions.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -568,6 +571,7 @@
 				081EFA9C284214FB004CAB1D /* AuthModel.swift in Sources */,
 				0889184928418AA8003513C4 /* AuthViewController.swift in Sources */,
 				0834845B2835776700296543 /* TagCollectionViewCell.swift in Sources */,
+				081A71602843FEC200D7BD17 /* StringExtensions.swift in Sources */,
 				08671A11283E6C0800B52A7E /* ProfileView.swift in Sources */,
 				08EB0B1C283E943C008E976F /* ProfileModel.swift in Sources */,
 				081A715E28431AB200D7BD17 /* APIError.swift in Sources */,
