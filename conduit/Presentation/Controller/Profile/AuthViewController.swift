@@ -29,6 +29,7 @@ class AuthViewController: UIViewController {
     private func setupTextFields() {
         usernameField.contentType = .username
         emailField.contentType = .emailAddress
+        emailField.textField.autocorrectionType = .no
         passwordField.contentType = .password
         usernameField.delegate = self
         emailField.delegate = self
@@ -87,6 +88,14 @@ extension AuthViewController: AuthView, ErrorIndicatorTextFieldDelegate {
         updateSubmitButtonState()
     }
     
+    private func updateSubmitButtonState() {
+        var hasTextInAllFields = true
+        hasTextInAllFields = hasTextInAllFields && (!isNewUser || usernameField.hasText)
+        hasTextInAllFields = hasTextInAllFields && emailField.hasText
+        hasTextInAllFields = hasTextInAllFields && passwordField.hasText
+        submitButton.isEnabled = hasTextInAllFields
+    }
+    
     func errorIndicatorTextFieldDidEndEditing(_ textField: ErrorIndicatorTextField) {
         switch(textField) {
         case usernameField: presenter.validate(username: textField.text)
@@ -94,14 +103,6 @@ extension AuthViewController: AuthView, ErrorIndicatorTextFieldDelegate {
         case passwordField: presenter.validate(password: textField.text)
         default: break
         }
-    }
-    
-    private func updateSubmitButtonState() {
-        var hasTextInAllFields = true
-        hasTextInAllFields = hasTextInAllFields && (isNewUser || usernameField.hasText)
-        hasTextInAllFields = hasTextInAllFields && emailField.hasText
-        hasTextInAllFields = hasTextInAllFields && passwordField.hasText
-        submitButton.isEnabled = hasTextInAllFields
     }
     
     @IBAction func onSubmitTapped() {
