@@ -1,18 +1,13 @@
 //
-//  JsonService.swift
+//  JSONService.swift
 //  conduit
 //
-//  Created by Ikroop Singh Kalsi on 25/05/22.
+//  Created by Ikroop Singh Kalsi on 30/05/22.
 //
 
 import Foundation
 
-protocol JSONService {
-    func encode<T : Encodable>(_ data: T) throws -> Data
-    func decode<T : Decodable>(_ data: Data) throws -> T
-}
-
-class JSONParser: JSONService {
+class JSONService: JSONInteractor {
     internal init() {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
@@ -25,7 +20,7 @@ class JSONParser: JSONService {
     private let jsonEncoder: JSONEncoder
     private let jsonDecoder: JSONDecoder
     
-    static let shared: JSONService = JSONParser()
+    static let shared: JSONInteractor = JSONService()
     
     func encode<T>(_ data: T) throws -> Data where T : Encodable {
         return try jsonEncoder.encode(data)

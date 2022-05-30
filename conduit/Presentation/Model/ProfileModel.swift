@@ -25,8 +25,8 @@ class ProfileModel {
     weak var profileView: ProfileView?
     
     static let shared = ProfileModel(authInteractor: AuthService.shared,
-                                     profileInteractor: APIDataSource.shared,
-                                     articleInteractor: APIDataSource.shared)
+                                     profileInteractor: ConduitAPI.shared,
+                                     articleInteractor: ConduitAPI.shared)
 }
 
 extension ProfileModel: ProfilePresenter {

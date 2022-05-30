@@ -7,7 +7,7 @@
 
 import Foundation
 
-class AuthService {
+class AuthService: AuthInteractor {
     private let KEY_USERNAME = "username"
     private let KEY_AUTH_TOKEN = "authToken"
     private let AUTH_ENDPOINT = URL(string: "https://api.realworld.io/api/users")!
@@ -29,12 +29,12 @@ class AuthService {
     }
     
     private let urlSession: URLSession
-    private let jsonService: JSONService
+    private let jsonInteractor: JSONInteractor
     private let userDefaults: UserDefaults
     
-    init(urlSession: URLSession, jsonService: JSONService, userDefaults: UserDefaults) {
+    init(urlSession: URLSession, jsonInteractor: JSONInteractor, userDefaults: UserDefaults) {
         self.urlSession = urlSession
-        self.jsonService = jsonService
+        self.jsonInteractor = jsonInteractor
         self.userDefaults = userDefaults
         // didSet is not called in the init function :D
         username = userDefaults.string(forKey: KEY_USERNAME)
@@ -42,7 +42,7 @@ class AuthService {
     }
     
     static let shared: AuthInteractor = AuthService(urlSession: .shared,
-                                                    jsonService: JSONParser.shared,
+                                                    jsonInteractor: JSONService.shared,
                                                     userDefaults: .standard)
     
     private func throwForBadResponse(_ response: URLResponse, _ data: Data) throws {
@@ -63,15 +63,15 @@ class AuthService {
     }
 }
 
-extension AuthService: AuthInteractor {
+extension AuthService {
     func login(withEmail user: LoginViaEmailParams) async throws -> User {
         let url = AUTH_ENDPOINT.appendingPathComponent("login")
         let body = LoginUserRequest(user: user)
         var req = URLRequest(url: url, method: .post)
-        req.httpBody = try jsonService.encode(body)
+        req.httpBody = try jsonInteractor.encode(body)
         let (data, res) = try await urlSession.data(for: req)
         try throwForBadResponse(res, data)
-        let decodedResponse: UserResponse = try jsonService.decode(data)
+        let decodedResponse: UserResponse = try jsonInteractor.decode(data)
         cacheAuthDetails(for: decodedResponse.user)
         return decodedResponse.user
     }
@@ -79,10 +79,10 @@ extension AuthService: AuthInteractor {
     func register(withEmail user: RegisterViaEmailParams) async throws -> User {
         let body = RegisterUserRequest(user: user)
         var req = URLRequest(url: AUTH_ENDPOINT, method: .post)
-        req.httpBody = try jsonService.encode(body)
+        req.httpBody = try jsonInteractor.encode(body)
         let (data, res) = try await urlSession.data(for: req)
         try throwForBadResponse(res, data)
-        let decodedResponse: UserResponse = try jsonService.decode(data)
+        let decodedResponse: UserResponse = try jsonInteractor.decode(data)
         cacheAuthDetails(for: decodedResponse.user)
         return decodedResponse.user
     }
