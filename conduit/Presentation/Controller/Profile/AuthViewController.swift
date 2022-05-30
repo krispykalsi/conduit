@@ -39,7 +39,7 @@ class AuthViewController: UIViewController {
 
 // MARK: - Presenter events and input validation
 extension AuthViewController: AuthView, ErrorIndicatorTextFieldDelegate {
-    func authPresenter(didProvideValidation state: ValidationState, forUsername email: String) {
+    func authPresenter(didProvideValidation state: ValidationState, forUsername username: String) {
         switch(state) {
         case .valid: usernameField.indicateCorrect()
         case .invalid(let msg): usernameField.indicateError(message: msg)
@@ -53,7 +53,7 @@ extension AuthViewController: AuthView, ErrorIndicatorTextFieldDelegate {
         }
     }
 
-    func authPresenter(didProvideValidation state: ValidationState, forPassword email: String) {
+    func authPresenter(didProvideValidation state: ValidationState, forPassword password: String) {
         switch(state) {
         case .valid: passwordField.indicateCorrect()
         case .invalid(let msg): passwordField.indicateError(message: msg)

@@ -6,8 +6,8 @@
 //
 
 @MainActor protocol AuthView: AnyObject {
-    func authPresenter(didProvideValidation state: ValidationState, forUsername email: String)
+    func authPresenter(didProvideValidation state: ValidationState, forUsername username: String)
     func authPresenter(didProvideValidation state: ValidationState, forEmail email: String)
-    func authPresenter(didProvideValidation state: ValidationState, forPassword email: String)
+    func authPresenter(didProvideValidation state: ValidationState, forPassword password: String)
     func authPresenter(didUpdateLoginOrRegisterState state: TaskState)
 }
