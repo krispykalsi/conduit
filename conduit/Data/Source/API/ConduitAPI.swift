@@ -34,7 +34,7 @@ class ConduitAPI: ArticleInteractor, ProfileInteractor {
         }
         do {
             let decodedResponse: GenericErrorResponse = try jsonInteractor.decode(data)
-            throw APIError.fromBackend(errors: decodedResponse.getErrors())
+            throw APIError.fromBackend(errors: decodedResponse.errors)
         } catch let error as DecodingError {
             debugPrint(error)
             throw APIError.non200Response(code: httpResponse.statusCode,

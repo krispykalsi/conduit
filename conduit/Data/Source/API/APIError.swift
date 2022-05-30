@@ -7,6 +7,6 @@
 
 enum APIError: Error {
     case non200Response(code: Int, msg: String)
-    case fromBackend(errors: [String])
+    case fromBackend(errors: [String: [String]])
     case unknown(msg: String)
 }

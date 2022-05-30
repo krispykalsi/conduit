@@ -54,11 +54,11 @@ class AuthService: AuthInteractor {
         }
         do {
             let decodedResponse: GenericErrorResponse = try jsonService.decode(data)
-            throw APIError.fromBackend(errors: decodedResponse.getErrors())
         } catch let error as DecodingError {
             debugPrint(error)
             throw APIError.non200Response(code: httpResponse.statusCode,
                                           msg: httpResponse.description)
+                throw APIError.fromBackend(errors: decodedResponse.errors)
         }
     }
 }

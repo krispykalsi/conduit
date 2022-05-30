@@ -7,8 +7,7 @@
 
 
 struct GenericErrorResponse: Decodable {
-    private let errors: [String: [String]]
-    func getErrors() -> [String] { errors["body"] ?? [] }
+    let errors: [String: [String]]
 }
 
 struct UserResponse: Decodable {
