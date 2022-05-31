@@ -26,7 +26,7 @@ class Router {
             viewController = vc
         case .profileView(let profile):
             let vc: ProfileViewController = instantiateViewController()
-            vc.isOwnProfile = false
+            vc.isOwnProfile = profile == nil
             vc.profile = profile
             viewController = vc
         case .loginView:

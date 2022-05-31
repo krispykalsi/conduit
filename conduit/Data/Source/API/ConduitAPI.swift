@@ -7,22 +7,28 @@
 
 import Foundation
 
-class ConduitAPI: ArticleInteractor, ProfileInteractor {
+class ConduitAPI: ArticleInteractor, ProfileInteractor, UserInteractor, RemoteAuthInteractor {
     private static let baseUrl = URL(string: "https://api.realworld.io/api")!
     private let userEndpoint = baseUrl.appendingPathComponent("user")
+    private let usersEndpoint = baseUrl.appendingPathComponent("users")
     private let articlesEndpoint = baseUrl.appendingPathComponent("articles")
     private let profilesEndpoint = baseUrl.appendingPathComponent("profiles")
     private let tagsEndpoint = baseUrl.appendingPathComponent("tags")
     
+    private let localAuthInteractor: LocalAuthInteractor
     private let httpInteractor: HTTPInteractor
     private let jsonInteractor: JSONInteractor
     
-    internal init(httpInteractor: HTTPInteractor, jsonInteractor: JSONInteractor) {
+    internal init(localAuthInteractor: LocalAuthInteractor,
+                  httpInteractor: HTTPInteractor,
+                  jsonInteractor: JSONInteractor) {
+        self.localAuthInteractor = localAuthInteractor
         self.httpInteractor = httpInteractor
         self.jsonInteractor = jsonInteractor
     }
     
-    static let shared = ConduitAPI(httpInteractor: HTTPService.shared,
+    static let shared = ConduitAPI(localAuthInteractor: LocalAuthService.shared,
+                                   httpInteractor: HTTPService.shared,
                                    jsonInteractor: JSONService.shared)
     
     private func throwForBadResponse(_ response: URLResponse, _ data: Data) throws {
@@ -45,28 +51,10 @@ class ConduitAPI: ArticleInteractor, ProfileInteractor {
 
 // MARK: ProfileInteractor
 extension ConduitAPI {
-    func fetchCurrentUser() async throws -> User {
-        let req = URLRequest(url: userEndpoint, method: .get)
-        let (data, res) = try await httpInteractor.send(req)
-        try throwForBadResponse(res, data)
-        let decodedResponse: UserResponse = try jsonInteractor.decode(data)
-        return decodedResponse.user
-    }
-    
-    func updateUser(with params: UpdateUserParams) async throws -> User {
-        let body = UpdateUserRequest(user: params)
-        var req = URLRequest(url: userEndpoint, method: .put)
-        req.httpBody = try jsonInteractor.encode(body)
-        let (data, res) = try await httpInteractor.send(req)
-        try throwForBadResponse(res, data)
-        let decodedResponse: UserResponse = try jsonInteractor.decode(data)
-        return decodedResponse.user
-    }
-    
     func fetchProfile(with username: String) async throws -> Profile {
         let url = profilesEndpoint.appendingPathComponent(username)
-        let req = URLRequest(url: url, method: .get)
-        let (data, res) = try await httpInteractor.send(req)
+        var req = URLRequest(url: url, method: .get)
+        let (data, res) = try await httpInteractor.send(&req)
         try throwForBadResponse(res, data)
         let decodedResponse: ProfileResponse = try jsonInteractor.decode(data)
         return decodedResponse.profile
@@ -74,8 +62,8 @@ extension ConduitAPI {
     
     func followProfile(with username: String) async throws -> Profile {
         let url = profilesEndpoint.appendingPathComponent(username + "/follow")
-        let req = URLRequest(url: url, method: .post)
-        let (data, res) = try await httpInteractor.send(req)
+        var req = URLRequest(url: url, method: .post)
+        let (data, res) = try await httpInteractor.send(&req)
         try throwForBadResponse(res, data)
         let decodedResponse: ProfileResponse = try jsonInteractor.decode(data)
         return decodedResponse.profile
@@ -83,8 +71,8 @@ extension ConduitAPI {
     
     func unfollowProfile(with username: String) async throws -> Profile {
         let url = profilesEndpoint.appendingPathComponent(username + "/follow")
-        let req = URLRequest(url: url, method: .delete)
-        let (data, res) = try await httpInteractor.send(req)
+        var req = URLRequest(url: url, method: .delete)
+        let (data, res) = try await httpInteractor.send(&req)
         try throwForBadResponse(res, data)
         let decodedResponse: ProfileResponse = try jsonInteractor.decode(data)
         return decodedResponse.profile
@@ -100,8 +88,8 @@ extension ConduitAPI {
         urlWithParams.queryItems = (try params.dictionary()).map { key, value in
             URLQueryItem(name: key, value: "\(value)")
         }
-        let req = URLRequest(url: urlWithParams.url!, method: .get)
-        let (data, res) = try await httpInteractor.send(req)
+        var req = URLRequest(url: urlWithParams.url!, method: .get)
+        let (data, res) = try await httpInteractor.send(&req)
         try throwForBadResponse(res, data)
         let decodedResponse: MultipleArticlesResponse = try jsonInteractor.decode(data)
         return decodedResponse.articles
@@ -112,8 +100,8 @@ extension ConduitAPI {
         urlWithParams.queryItems = (try params.dictionary()).map { key, value in
             URLQueryItem(name: key, value: "\(value)")
         }
-        let req = URLRequest(url: urlWithParams.url!, method: .get)
-        let (data, res) = try await httpInteractor.send(req)
+        var req = URLRequest(url: urlWithParams.url!, method: .get)
+        let (data, res) = try await httpInteractor.send(&req)
         try throwForBadResponse(res, data)
         let decodedResponse: MultipleArticlesResponse = try jsonInteractor.decode(data)
         return decodedResponse.articles
@@ -124,7 +112,7 @@ extension ConduitAPI {
         var req = URLRequest(url: articlesEndpoint, method: .post)
         let body = CreateArticleRequest(article: params)
         req.httpBody = try jsonInteractor.encode(body)
-        let (data, res) = try await httpInteractor.send(req)
+        let (data, res) = try await httpInteractor.send(&req)
         try throwForBadResponse(res, data)
         let decodedResponse: SingleArticleResponse = try jsonInteractor.decode(data)
         return decodedResponse.article
@@ -132,8 +120,8 @@ extension ConduitAPI {
     
     func fetchArticle(viaSlug slug: String) async throws -> Article {
         let url = articlesEndpoint.appendingPathComponent(slug)
-        let req = URLRequest(url: url, method: .get)
-        let (data, res) = try await httpInteractor.send(req)
+        var req = URLRequest(url: url, method: .get)
+        let (data, res) = try await httpInteractor.send(&req)
         try throwForBadResponse(res, data)
         let decodedResponse: SingleArticleResponse = try jsonInteractor.decode(data)
         return decodedResponse.article
@@ -144,7 +132,7 @@ extension ConduitAPI {
         var req = URLRequest(url: url, method: .put)
         let body = UpdateArticleRequest(article: params)
         req.httpBody = try jsonInteractor.encode(body)
-        let (data, res) = try await httpInteractor.send(req)
+        let (data, res) = try await httpInteractor.send(&req)
         try throwForBadResponse(res, data)
         let decodedResponse: SingleArticleResponse = try jsonInteractor.decode(data)
         return decodedResponse.article
@@ -152,16 +140,16 @@ extension ConduitAPI {
     
     func deleteArticle(viaSlug slug: String) async throws {
         let url = articlesEndpoint.appendingPathComponent(slug)
-        let req = URLRequest(url: url, method: .delete)
-        let (data, res) = try await httpInteractor.send(req)
+        var req = URLRequest(url: url, method: .delete)
+        let (data, res) = try await httpInteractor.send(&req)
         try throwForBadResponse(res, data)
     }
     
     // MARK: COMMENTS
     func fetchComments(ofArticleWithSlug slug: String) async throws -> [Comment] {
         let url = articlesEndpoint.appendingPathComponent(slug + "/comments")
-        let req = URLRequest(url: url, method: .get)
-        let (data, res) = try await httpInteractor.send(req)
+        var req = URLRequest(url: url, method: .get)
+        let (data, res) = try await httpInteractor.send(&req)
         try throwForBadResponse(res, data)
         let decodedResponse: MultipleCommentsResponse = try jsonInteractor.decode(data)
         return decodedResponse.comments
@@ -172,7 +160,7 @@ extension ConduitAPI {
         var req = URLRequest(url: url, method: .post)
         let body = NewCommentRequest(withBody: body)
         req.httpBody = try jsonInteractor.encode(body)
-        let (data, res) = try await httpInteractor.send(req)
+        let (data, res) = try await httpInteractor.send(&req)
         try throwForBadResponse(res, data)
         let decodedResponse: SingleCommentResponse = try jsonInteractor.decode(data)
         return decodedResponse.comment
@@ -180,16 +168,16 @@ extension ConduitAPI {
     
     func deleteComment(withId id: Int, onArticleWithSlug slug: String) async throws {
         let url = articlesEndpoint.appendingPathComponent( "\(slug)/comments/\(id)")
-        let req = URLRequest(url: url, method: .delete)
-        let (data, res) = try await httpInteractor.send(req)
+        var req = URLRequest(url: url, method: .delete)
+        let (data, res) = try await httpInteractor.send(&req)
         try throwForBadResponse(res, data)
     }
     
     // MARK: FAVORITE
     func favoriteArticle(withSlug slug: String) async throws -> Article {
         let url = articlesEndpoint.appendingPathComponent( "\(slug)/favorite")
-        let req = URLRequest(url: url, method: .post)
-        let (data, res) = try await httpInteractor.send(req)
+        var req = URLRequest(url: url, method: .post)
+        let (data, res) = try await httpInteractor.send(&req)
         try throwForBadResponse(res, data)
         let decodedResponse: SingleArticleResponse = try jsonInteractor.decode(data)
         return decodedResponse.article
@@ -197,8 +185,8 @@ extension ConduitAPI {
     
     func unfavoriteArticle(withSlug slug: String) async throws -> Article {
         let url = articlesEndpoint.appendingPathComponent( "\(slug)/favorite")
-        let req = URLRequest(url: url, method: .delete)
-        let (data, res) = try await httpInteractor.send(req)
+        var req = URLRequest(url: url, method: .delete)
+        let (data, res) = try await httpInteractor.send(&req)
         try throwForBadResponse(res, data)
         let decodedResponse: SingleArticleResponse = try jsonInteractor.decode(data)
         return decodedResponse.article
@@ -206,10 +194,57 @@ extension ConduitAPI {
     
     // MARK: TAGS
     func fetchTags() async throws -> [String] {
-        let req = URLRequest(url: tagsEndpoint, method: .get)
-        let (data, res) = try await httpInteractor.send(req)
+        var req = URLRequest(url: tagsEndpoint, method: .get)
+        let (data, res) = try await httpInteractor.send(&req)
         try throwForBadResponse(res, data)
         let decodedResponse: TagResponse = try jsonInteractor.decode(data)
         return decodedResponse.tags
+    }
+}
+
+// MARK: UserInteractor
+extension ConduitAPI {
+    func fetchCurrentUser() async throws -> User {
+        var req = URLRequest(url: userEndpoint, method: .get)
+        let (data, res) = try await httpInteractor.send(&req)
+        try throwForBadResponse(res, data)
+        let decodedResponse: UserResponse = try jsonInteractor.decode(data)
+        return decodedResponse.user
+    }
+    
+    func updateUser(with params: UpdateUserParams) async throws -> User {
+        let body = UpdateUserRequest(user: params)
+        var req = URLRequest(url: userEndpoint, method: .put)
+        req.httpBody = try jsonInteractor.encode(body)
+        let (data, res) = try await httpInteractor.send(&req)
+        try throwForBadResponse(res, data)
+        let decodedResponse: UserResponse = try jsonInteractor.decode(data)
+        return decodedResponse.user
+    }
+}
+
+// MARK: RemoteAuthInteractor
+extension ConduitAPI {
+    func login(withEmail user: LoginViaEmailParams) async throws -> User {
+        let url = usersEndpoint.appendingPathComponent("login")
+        let body = LoginUserRequest(user: user)
+        var req = URLRequest(url: url, method: .post)
+        req.httpBody = try jsonInteractor.encode(body)
+        let (data, res) = try await httpInteractor.send(&req)
+        try throwForBadResponse(res, data)
+        let decodedResponse: UserResponse = try jsonInteractor.decode(data)
+        localAuthInteractor.cacheAuthDetails(of: decodedResponse.user)
+        return decodedResponse.user
+    }
+    
+    func register(withEmail user: RegisterViaEmailParams) async throws -> User {
+        let body = RegisterUserRequest(user: user)
+        var req = URLRequest(url: usersEndpoint, method: .post)
+        req.httpBody = try jsonInteractor.encode(body)
+        let (data, res) = try await httpInteractor.send(&req)
+        try throwForBadResponse(res, data)
+        let decodedResponse: UserResponse = try jsonInteractor.decode(data)
+        localAuthInteractor.cacheAuthDetails(of: decodedResponse.user)
+        return decodedResponse.user
     }
 }

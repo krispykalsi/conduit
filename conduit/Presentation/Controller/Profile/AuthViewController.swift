@@ -97,6 +97,9 @@ extension AuthViewController: AuthView, ErrorIndicatorTextFieldDelegate {
     }
     
     func errorIndicatorTextFieldDidEndEditing(_ textField: ErrorIndicatorTextField) {
+        if !isNewUser {
+            return
+        }
         switch(textField) {
         case usernameField: presenter.validate(username: textField.text)
         case emailField: presenter.validate(email: textField.text)
@@ -115,6 +118,7 @@ extension AuthViewController: AuthView, ErrorIndicatorTextFieldDelegate {
         }
     }
 }
+
 // MARK: - Switching in Login/Register Views
 extension AuthViewController {
     private func changeViewToRegister() {

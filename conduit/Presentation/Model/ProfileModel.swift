@@ -6,15 +6,15 @@
 //
 
 class ProfileModel {
-    internal init(authInteractor: AuthInteractor,
+    internal init(localAuthInteractor: LocalAuthInteractor,
                   profileInteractor: ProfileInteractor,
                   articleInteractor: ArticleInteractor) {
-        self.authInteractor = authInteractor
+        self.localAuthInteractor = localAuthInteractor
         self.profileInteractor = profileInteractor
         self.articleInteractor = articleInteractor
     }
     
-    private let authInteractor: AuthInteractor
+    private let localAuthInteractor: LocalAuthInteractor
     private let profileInteractor: ProfileInteractor
     private let articleInteractor: ArticleInteractor
     
@@ -24,14 +24,14 @@ class ProfileModel {
     
     weak var profileView: ProfileView?
     
-    static let shared = ProfileModel(authInteractor: AuthService.shared,
+    static let shared = ProfileModel(localAuthInteractor: LocalAuthService.shared,
                                      profileInteractor: ConduitAPI.shared,
                                      articleInteractor: ConduitAPI.shared)
 }
 
 extension ProfileModel: ProfilePresenter {
     func fetchCurrentUserProfileData() {
-        if let username = authInteractor.username {
+        if let username = localAuthInteractor.username {
             fetchProfileData(for: username)
             fetchArticleData(for: username)
         } else {

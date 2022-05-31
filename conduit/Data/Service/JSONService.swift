@@ -12,8 +12,10 @@ class JSONService: JSONInteractor {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = JSONDecoder.DateDecodingStrategy.formatted(formatter)
-        self.jsonEncoder = JSONEncoder()
+        decoder.dateDecodingStrategy = .formatted(formatter)
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = .prettyPrinted
+        self.jsonEncoder = encoder
         self.jsonDecoder = decoder
     }
     

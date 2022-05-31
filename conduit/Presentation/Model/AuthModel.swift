@@ -6,14 +6,14 @@
 //
 
 class AuthModel {
-    internal init(authInteractor: AuthInteractor) {
-        self.authInteractor = authInteractor
+    internal init(remoteAuthInteractor: RemoteAuthInteractor) {
+        self.remoteAuthInteractor = remoteAuthInteractor
     }
     
-    private let authInteractor: AuthInteractor
+    private let remoteAuthInteractor: RemoteAuthInteractor
     weak var authView: AuthView?
     
-    static let shared = AuthModel(authInteractor: AuthService.shared)
+    static let shared = AuthModel(remoteAuthInteractor: ConduitAPI.shared)
     
     private var isUsernameValid = false
     private var isEmailValid = false
@@ -79,10 +79,27 @@ extension AuthModel: AuthPresenter {
     }
 
     func login(email: String, password: String) {
-        validate(email: email)
-        validate(password: password)
-        if isEmailValid && isPasswordValid {
-            // begin login
+        guard !email.isEmpty else {
+            authView?.authPresenter(didProvideValidation: .invalid("Can't be empty"),
+                                    forEmail: email)
+            return
+        }
+        guard !password.isEmpty else {
+            authView?.authPresenter(didProvideValidation: .invalid("Can't be empty"),
+                                    forPassword: password)
+            return
+        }
+        authView?.authPresenter(didUpdateLoginOrRegisterState: .inProgress)
+        Task {
+            do {
+                let params = LoginViaEmailParams(email: email, password: password)
+                _ = try await remoteAuthInteractor.login(withEmail: params)
+                authView?.authPresenter(didUpdateLoginOrRegisterState: .success)
+            } catch let err as APIError {
+                handle(apiError: err)
+            } catch {
+                authView?.authPresenter(didUpdateLoginOrRegisterState: .failure(error.localizedDescription))
+            }
         }
     }
 
@@ -91,7 +108,29 @@ extension AuthModel: AuthPresenter {
         validate(password: password)
         validate(username: username)
         if isUsernameValid && isEmailValid && isPasswordValid {
-            // begin register
+            authView?.authPresenter(didUpdateLoginOrRegisterState: .inProgress)
+            Task {
+                do {
+                    let params = RegisterViaEmailParams(username: username, email: email, password: password)
+                    _ = try await remoteAuthInteractor.register(withEmail: params)
+                    authView?.authPresenter(didUpdateLoginOrRegisterState: .success)
+                } catch let err as APIError {
+                    handle(apiError: err)
+                } catch {
+                    authView?.authPresenter(didUpdateLoginOrRegisterState: .failure(error.localizedDescription))
+                }
+            }
+        }
+    }
+    
+    @MainActor private func handle(apiError: APIError) {
+        switch(apiError) {
+        case .non200Response(code: _, msg: let msg):
+            authView?.authPresenter(didUpdateLoginOrRegisterState: .failure(msg))
+        case .fromBackend(errors: let errors):
+            authView?.authPresenter(didUpdateLoginOrRegisterState: .failure("\(errors)"))
+        case .unknown(msg: let msg):
+            authView?.authPresenter(didUpdateLoginOrRegisterState: .failure(msg))
         }
     }
 }

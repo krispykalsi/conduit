@@ -8,28 +8,35 @@
 import Foundation
 
 class HTTPService: NSObject, HTTPInteractor {
-    init(authInteractor: AuthInteractor) {
+    init(localAuthInteractor: LocalAuthInteractor) {
         self.urlSession = URLSession(configuration: .default)
-        self.authInteractor = authInteractor
+        self.localAuthInteractor = localAuthInteractor
     }
     
     private let urlSession: URLSession
-    private let authInteractor: AuthInteractor
+    private let localAuthInteractor: LocalAuthInteractor
     
-    static let shared: HTTPInteractor = HTTPService(authInteractor: AuthService.shared)
+    static let shared: HTTPInteractor = HTTPService(localAuthInteractor: LocalAuthService.shared)
     
-    private func authenticate(_ req: URLRequest) -> URLRequest {
-        var reqWithAuthToken = req
-        if let token = authInteractor.authToken {
-            reqWithAuthToken.addValue("Token \(token)", forHTTPHeaderField: "Authorization")
+    private func authenticate(_ req: inout URLRequest) {
+        if let token = localAuthInteractor.authToken {
+            req.addValue("Token \(token)", forHTTPHeaderField: "Authorization")
         }
-        return reqWithAuthToken
+    }
+    
+    private func addJSONHeaders(to req: inout URLRequest) {
+        req.setValue("application/json", forHTTPHeaderField: "Accept")
+        req.setValue("application/json", forHTTPHeaderField: "Content-Type")
     }
 }
 
 extension HTTPService {
-    func send(_ request: URLRequest) async throws -> (Data, URLResponse) {
-        return try await urlSession.data(for: authenticate(request), delegate: self)
+    func send(_ request: inout URLRequest) async throws -> (Data, URLResponse) {
+        if request.httpBody != nil {
+            addJSONHeaders(to: &request)
+        }
+        authenticate(&request)
+        return try await urlSession.data(for: request, delegate: self)
     }
 }
 
@@ -40,6 +47,8 @@ extension HTTPService: URLSessionDelegate, URLSessionTaskDelegate {
         if request.url!.baseURL != response.url!.baseURL {
             return nil
         }
-        return authenticate(request)
+        var req = request
+        authenticate(&req)
+        return req
     }
 }

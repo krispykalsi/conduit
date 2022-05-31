@@ -8,5 +8,5 @@
 import Foundation
 
 protocol HTTPInteractor {
-    func send(_ request: URLRequest) async throws -> (Data, URLResponse)
+    func send(_ request: inout URLRequest) async throws -> (Data, URLResponse)
 }
