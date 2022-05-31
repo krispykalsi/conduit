@@ -10,7 +10,7 @@ import UIKit
 class ArticleViewController: UIViewController {
     @IBOutlet weak var authorNameLabel: UILabel!
     @IBOutlet weak var dateCreatedLabel: UILabel!
-    @IBOutlet weak var authorImageView: CircularImageView!
+    @IBOutlet weak var authorImageView: CircularAvatarImageView!
     @IBOutlet weak var articleTitleLabel: UILabel!
     @IBOutlet weak var articleBodyTextView: UITextView!
 
@@ -27,7 +27,7 @@ class ArticleViewController: UIViewController {
         authorImageView.loadImage(fromUrl: article.author.image)
         dateCreatedLabel.text = DateFormatter.localizedString(from: article.createdAt,
                                                               dateStyle: .medium,
-                                                              timeStyle: .none)
+                                                              timeStyle: .short)
         articleTitleLabel.text = article.title
         articleBodyTextView.text = article.body
     }

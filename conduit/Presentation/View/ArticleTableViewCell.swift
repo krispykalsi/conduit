@@ -12,7 +12,7 @@ class ArticleTableViewCell: UITableViewCell {
     
     @IBOutlet weak var authorStackView: UIStackView!
     @IBOutlet weak var authorLabel: UILabel!
-    @IBOutlet weak var authorImage: CircularImageView!
+    @IBOutlet weak var authorImage: CircularAvatarImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var dateCreatedLabel: UILabel!
     
@@ -24,7 +24,7 @@ class ArticleTableViewCell: UITableViewCell {
         }
         titleLabel.text = article.title
         dateCreatedLabel.text = DateFormatter.localizedString(from: article.createdAt,
-                                                                   dateStyle: .medium,
-                                                                   timeStyle: .short)
+                                                              dateStyle: .medium,
+                                                              timeStyle: .none)
     }
 }

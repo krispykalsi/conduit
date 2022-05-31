@@ -8,11 +8,12 @@
 import UIKit
 
 @IBDesignable
-class CircularImageView: CachedImageView {
+class CircularAvatarImageView: CachedImageView {
     override func layoutSubviews() {
         super.layoutSubviews()
         layer.cornerRadius = layer.frame.height / 2
         clipsToBounds = true
         contentMode = .scaleAspectFill
+        image = UIImage(systemName: "person.crop.circle.fill")
     }
 }

@@ -7,46 +7,31 @@
 
 import UIKit
 
-class ProfileViewController: UIViewController {
+class ProfileViewController: UIViewController, ProfileView {
     @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var bioTextView: UITextView!
-    @IBOutlet weak var userImageView: CircularImageView!
+    @IBOutlet weak var userImageView: CircularAvatarImageView!
+    @IBOutlet weak var followButton: UIButton!
+    @IBOutlet weak var editDetailsButton: UIButton!
+
     @IBOutlet weak var articlesSegmentControl: UISegmentedControl!
     @IBOutlet weak var userDetailPagesScrollView: UIScrollView!
     @IBOutlet weak var userArticlesTableView: UITableView!
     @IBOutlet weak var favoriteArticlesTableView: UITableView!
+    @IBOutlet weak var bioTextView: UITextView!
     
     private let presenter = ProfileModel.shared
     
     var profile: Profile!
     var isOwnProfile = true
     
-    private let userArticlesManager = ArticlesManager(showAuthorDetails: false)
-    private let favoriteArticlesManager = ArticlesManager(showAuthorDetails: true)
+    private let userArticlesManager = ArticleTableManager(showAuthorDetails: false)
+    private let favoriteArticlesManager = ArticleTableManager(showAuthorDetails: true)
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupArticleManager()
-        setupArticleViews()
         setupPresenter()
-    }
-    
-    private func setupArticleManager() {
-        userArticlesManager.parentViewController = self
-        favoriteArticlesManager.parentViewController = self
-    }
-    
-    private func setupArticleViews() {
-        userDetailPagesScrollView.delegate = self
-        userArticlesTableView.delegate = userArticlesManager
-        userArticlesTableView.dataSource = userArticlesManager
-        favoriteArticlesTableView.delegate = favoriteArticlesManager
-        favoriteArticlesTableView.dataSource = favoriteArticlesManager
-        let nibName = String(describing: ArticleTableViewCell.self)
-        let nib = UINib(nibName: nibName, bundle: nil)
-        let identifier = ArticleTableViewCell.reuseIdentifier
-        userArticlesTableView.register(nib, forCellReuseIdentifier: identifier)
-        favoriteArticlesTableView.register(nib, forCellReuseIdentifier: identifier)
+        setupProfileActionButton()
+        setupArticleViews()
     }
     
     private func setupPresenter() {
@@ -64,8 +49,41 @@ class ProfileViewController: UIViewController {
         bioTextView.text = profile.bio
         userImageView.loadImage(fromUrl: profile.image)
     }
+    
+    private func setupProfileActionButton() {
+        editDetailsButton.isHidden = !isOwnProfile
+        followButton.isHidden = isOwnProfile
+    }
+    
+    private func setupArticleViews() {
+        userDetailPagesScrollView.delegate = self
+        setupArticleTableManager()
+        let nibName = String(describing: ArticleTableViewCell.self)
+        let nib = UINib(nibName: nibName, bundle: nil)
+        let identifier = ArticleTableViewCell.reuseIdentifier
+        userArticlesTableView.register(nib, forCellReuseIdentifier: identifier)
+        favoriteArticlesTableView.register(nib, forCellReuseIdentifier: identifier)
+    }
+    
+    private func setupArticleTableManager() {
+        userArticlesManager.parentViewController = self
+        favoriteArticlesManager.parentViewController = self
+        userArticlesTableView.delegate = userArticlesManager
+        userArticlesTableView.dataSource = userArticlesManager
+        favoriteArticlesTableView.delegate = favoriteArticlesManager
+        favoriteArticlesTableView.dataSource = favoriteArticlesManager
+    }
+    
+    @IBAction func didTapEditDetailsButton() {
+        
+    }
+    
+    @IBAction func didTapFollowButton() {
+        
+    }
 }
 
+// MARK: - Sync logic b/w ScrollView and SegmentControl
 extension ProfileViewController: UIScrollViewDelegate {
     @IBAction func onArticleSegmentChanged(_ sender: UISegmentedControl) {
         let i = CGFloat(sender.selectedSegmentIndex)
@@ -79,7 +97,8 @@ extension ProfileViewController: UIScrollViewDelegate {
     }
 }
 
-extension ProfileViewController: ProfileView {
+// MARK: - ProfilePresenter events
+extension ProfileViewController {
     func profilePresenter(didUpdateStateOf data: ProfileViewData) {
         switch(data) {
         case .profile(let s):
@@ -116,7 +135,8 @@ extension ProfileViewController: ProfileView {
     }
 }
 
-fileprivate class ArticlesManager: NSObject, UITableViewDelegate, UITableViewDataSource {
+// MARK: - TableView Delegate and DataSource
+fileprivate class ArticleTableManager: NSObject, UITableViewDelegate, UITableViewDataSource {
     private var articles: [Article] = []
     private let showAuthorDetails: Bool
     
