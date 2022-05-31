@@ -74,4 +74,9 @@ extension ProfileModel: ProfilePresenter {
             }
         }
     }
+    
+    func logOut() {
+        localAuthInteractor.clearAuthDetailsFromCache()
+        profileView?.profilePresenterRequiresAuth()
+    }
 }

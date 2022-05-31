@@ -12,6 +12,7 @@ class ProfileViewController: UIViewController, ProfileView {
     @IBOutlet weak var userImageView: CircularAvatarImageView!
     @IBOutlet weak var followButton: UIButton!
     @IBOutlet weak var editDetailsButton: UIButton!
+    @IBOutlet weak var logOutButton: UIBarButtonItem!
 
     @IBOutlet weak var articlesSegmentControl: UISegmentedControl!
     @IBOutlet weak var userDetailPagesScrollView: UIScrollView!
@@ -53,6 +54,9 @@ class ProfileViewController: UIViewController, ProfileView {
     private func setupProfileActionButton() {
         editDetailsButton.isHidden = !isOwnProfile
         followButton.isHidden = isOwnProfile
+        if !isOwnProfile {
+            navigationItem.rightBarButtonItem = nil
+        }
     }
     
     private func setupArticleViews() {
@@ -80,6 +84,15 @@ class ProfileViewController: UIViewController, ProfileView {
     
     @IBAction func didTapFollowButton() {
         
+    }
+    
+    @IBAction func didTapLogOutButton() {
+        let alert = UIAlertController(title: "Are you sure?", message: "You will need to enter your details to login again", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        alert.addAction(UIAlertAction(title: "Logout", style: .destructive) { _ in
+            self.presenter.logOut()
+        })
+        present(alert, animated: true)
     }
 }
 

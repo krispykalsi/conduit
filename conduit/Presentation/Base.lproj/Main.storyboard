@@ -119,7 +119,7 @@
                                 <rect key="frame" x="20" y="44" width="151.33333333333334" height="60"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WU3-xo-o0P" customClass="CircularAvatarImageView" customModule="conduit" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="5" width="50" height="50"/>
+                                        <rect key="frame" x="0.0" y="6" width="50" height="48.666666666666671"/>
                                         <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="D1n-ua-98v"/>
@@ -268,7 +268,7 @@
                                 <rect key="frame" x="20" y="153.66666666666666" width="335" height="70.333333333333343"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7LK-tw-zeV" customClass="CircularAvatarImageView" customModule="conduit" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
+                                        <rect key="frame" x="0.0" y="1" width="70" height="68.666666666666671"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="7LK-tw-zeV" secondAttribute="height" multiplier="1:1" id="OhW-A6-cR4"/>
                                             <constraint firstAttribute="height" constant="70" id="a8C-UD-kNd"/>
@@ -382,13 +382,21 @@
                             <constraint firstItem="UEA-m4-zpR" firstAttribute="leading" secondItem="FhR-M7-b4u" secondAttribute="leading" constant="20" id="xTt-Tv-vKD"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Profile" id="BDV-L2-J3B"/>
+                    <navigationItem key="navigationItem" title="Profile" id="BDV-L2-J3B">
+                        <barButtonItem key="rightBarButtonItem" title="Log Out" image="rectangle.portrait.and.arrow.right" catalog="system" id="5uK-Z0-uFv">
+                            <color key="tintColor" systemColor="systemRedColor"/>
+                            <connections>
+                                <action selector="didTapLogOutButton" destination="9zu-kX-soq" id="sYu-mr-PgQ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="articlesSegmentControl" destination="UEA-m4-zpR" id="a0M-Wl-53s"/>
                         <outlet property="bioTextView" destination="CWz-0r-NNV" id="sh2-gW-m1w"/>
                         <outlet property="editDetailsButton" destination="zkP-A2-272" id="2WY-YJ-y7y"/>
                         <outlet property="favoriteArticlesTableView" destination="cj6-vk-i2Q" id="Cpg-Cx-wUm"/>
                         <outlet property="followButton" destination="gcu-c5-cWM" id="9op-FP-BvH"/>
+                        <outlet property="logOutButton" destination="5uK-Z0-uFv" id="Wf1-wV-ToY"/>
                         <outlet property="nameLabel" destination="hMd-ri-eFR" id="D8U-Lb-tq2"/>
                         <outlet property="userArticlesTableView" destination="cVg-15-xh3" id="jlo-yS-iq3"/>
                         <outlet property="userDetailPagesScrollView" destination="ve3-xQ-wfd" id="bEs-Qp-xjv"/>
@@ -439,7 +447,7 @@
                                                     </view>
                                                 </subviews>
                                             </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="NTS-EB-qEC">
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="NTS-EB-qEC">
                                                 <rect key="frame" x="118" y="304" width="139" height="79.666666666666686"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b6i-tH-oiQ">
@@ -451,7 +459,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YQ0-4b-Sc6">
-                                                        <rect key="frame" x="0.0" y="39" width="139" height="40.666666666666657"/>
+                                                        <rect key="frame" x="23.999999999999993" y="39" width="91.333333333333314" height="40.666666666666657"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="filled" title="Register" cornerStyle="large" titleAlignment="center">
                                                             <fontDescription key="titleFontDescription" name="Heebo-Regular_Medium" family="Heebo" pointSize="18"/>
@@ -527,6 +535,7 @@
         <image name="house.fill" catalog="system" width="128" height="106"/>
         <image name="person.crop.circle" catalog="system" width="128" height="121"/>
         <image name="person.crop.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="rectangle.portrait.and.arrow.right" catalog="system" width="128" height="108"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
@@ -535,6 +544,9 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

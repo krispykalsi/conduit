@@ -10,4 +10,5 @@
     
     func fetchCurrentUserProfileData()
     func fetchArticleData(for username: String)
+    func logOut()
 }
