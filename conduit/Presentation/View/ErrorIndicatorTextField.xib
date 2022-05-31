@@ -27,7 +27,7 @@
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="4Ik-OR-Mrg">
                     <rect key="frame" x="0.0" y="0.0" width="447" height="50"/>
                     <subviews>
-                        <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Text" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="WGu-Hn-XeR">
+                        <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Text" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="WGu-Hn-XeR">
                             <rect key="frame" x="0.0" y="0.0" width="447" height="50"/>
                             <fontDescription key="fontDescription" name="Heebo-Regular" family="Heebo" pointSize="18"/>
                             <textInputTraits key="textInputTraits"/>
