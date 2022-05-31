@@ -9,8 +9,8 @@ import UIKit
 
 @IBDesignable
 class CircularAvatarImageView: CachedImageView {
-    override func layoutSubviews() {
-        super.layoutSubviews()
+    override func awakeFromNib() {
+        super.awakeFromNib()
         layer.cornerRadius = layer.frame.height / 2
         clipsToBounds = true
         contentMode = .scaleAspectFill
