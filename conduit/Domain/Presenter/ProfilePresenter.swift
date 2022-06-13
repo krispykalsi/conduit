@@ -10,5 +10,7 @@
     
     func fetchCurrentUserProfileData()
     func fetchArticleData(for username: String)
+    func followUser(with username: String)
+    func unfollowUser(with username: String)
     func logOut()
 }

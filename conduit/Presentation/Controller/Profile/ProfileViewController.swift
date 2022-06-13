@@ -10,7 +10,7 @@ import UIKit
 class ProfileViewController: UIViewController, ProfileView {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var userImageView: CircularAvatarImageView!
-    @IBOutlet weak var followButton: UIButton!
+    @IBOutlet weak var followButton: FollowButton!
     @IBOutlet weak var editDetailsButton: UIButton!
     @IBOutlet weak var logOutButton: UIBarButtonItem!
 
@@ -46,9 +46,13 @@ class ProfileViewController: UIViewController, ProfileView {
     }
     
     private func populateValues(of profile: Profile) {
+        self.profile = profile
         nameLabel.text = profile.username
         bioTextView.text = profile.bio
         userImageView.loadImage(fromUrl: profile.image)
+        if !isOwnProfile && profile.following {
+            followButton.changeTo(.unfollow)
+        }
     }
     
     private func setupProfileActionButton() {
@@ -83,7 +87,11 @@ class ProfileViewController: UIViewController, ProfileView {
     }
     
     @IBAction func didTapFollowButton() {
-        
+        if profile.following {
+            presenter.unfollowUser(with: profile.username)
+        } else {
+            presenter.followUser(with: profile.username)
+        }
     }
     
     @IBAction func didTapLogOutButton() {
@@ -123,13 +131,43 @@ extension ProfileViewController {
         }
     }
     
+    func profilePresenter(didUpdateFollowState state: TaskState) {
+        switch(state) {
+        case .success:
+            followButton.changeTo(.unfollow)
+            followButton.isEnabled = true
+        case .inProgress:
+            followButton.isEnabled = false
+        case .failure(_):
+            followButton.isEnabled = true
+        }
+    }
+    
+    func profilePresenter(didUpdateUnfollowState state: TaskState) {
+        switch(state) {
+        case .success:
+            followButton.changeTo(.follow)
+            followButton.isEnabled = true
+        case .inProgress:
+            followButton.isEnabled = false
+        case .failure(_):
+            followButton.isEnabled = true
+        }
+    }
+    
     func profilePresenterRequiresAuth() {
         Router.shared.replace(self, with: .loginView)
     }
     
     private func handleProfileDataState(_ state: DataState<Profile>) {
-        if case .loaded(let profile) = state {
+        switch(state) {
+        case .loaded(let profile):
             populateValues(of: profile)
+            followButton.isEnabled = true
+        case .loading:
+            followButton.isEnabled = false
+        case .error(let msg):
+            print(msg)
         }
     }
     

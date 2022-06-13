@@ -30,6 +30,32 @@ class ProfileModel {
 }
 
 extension ProfileModel: ProfilePresenter {
+    func followUser(with username: String) {
+        profileView?.profilePresenter(didUpdateFollowState: .inProgress)
+        Task {
+            do {
+                _ = try await profileInteractor.followProfile(with: username)
+                profileView?.profilePresenter(didUpdateFollowState: .success)
+            } catch {
+                let msg = error.localizedDescription
+                profileView?.profilePresenter(didUpdateFollowState: .failure(msg))
+            }
+        }
+    }
+    
+    func unfollowUser(with username: String) {
+        profileView?.profilePresenter(didUpdateUnfollowState: .inProgress)
+        Task {
+            do {
+                _ = try await profileInteractor.unfollowProfile(with: username)
+                profileView?.profilePresenter(didUpdateUnfollowState: .success)
+            } catch {
+                let msg = error.localizedDescription
+                profileView?.profilePresenter(didUpdateUnfollowState: .failure(msg))
+            }
+        }
+    }
+    
     func fetchCurrentUserProfileData() {
         if let username = localAuthInteractor.username {
             fetchProfileData(for: username)

@@ -11,6 +11,15 @@ import UIKit
 class CircularAvatarImageView: CachedImageView {
     override func awakeFromNib() {
         super.awakeFromNib()
+        initView()
+    }
+    
+    override func prepareForInterfaceBuilder() {
+        super.prepareForInterfaceBuilder()
+        initView()
+    }
+    
+    private func initView() {
         layer.cornerRadius = layer.frame.height / 2
         clipsToBounds = true
         contentMode = .scaleAspectFill

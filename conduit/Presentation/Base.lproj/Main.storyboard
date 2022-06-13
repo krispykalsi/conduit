@@ -119,7 +119,7 @@
                                 <rect key="frame" x="20" y="44" width="151.33333333333334" height="60"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WU3-xo-o0P" customClass="CircularAvatarImageView" customModule="conduit" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="6" width="50" height="48.666666666666671"/>
+                                        <rect key="frame" x="0.0" y="5" width="50" height="50"/>
                                         <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="D1n-ua-98v"/>
@@ -145,13 +145,16 @@
                                                             <outletCollection property="gestureRecognizers" destination="0iU-3P-5dB" appends="YES" id="M6w-gt-3h5"/>
                                                         </connections>
                                                     </label>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ahs-PL-l5l">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ahs-PL-l5l" customClass="FollowButton" customModule="conduit" customModuleProvider="target">
                                                         <rect key="frame" x="38" y="2.6666666666666643" width="55.333333333333343" height="21.666666666666668"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="filled" title="Follow" cornerStyle="capsule">
                                                             <fontDescription key="titleFontDescription" name="Heebo-Regular" family="Heebo" pointSize="12"/>
                                                             <directionalEdgeInsets key="contentInsets" top="2" leading="10" bottom="2" trailing="10"/>
                                                         </buttonConfiguration>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="compact" value="YES"/>
+                                                        </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="onFollowPressed:" destination="Scd-Qt-qqd" eventType="touchUpInside" id="tdv-gk-uLu"/>
                                                         </connections>
@@ -217,6 +220,7 @@
                         <outlet property="authorImageView" destination="WU3-xo-o0P" id="rAz-qN-WTy"/>
                         <outlet property="authorNameLabel" destination="PLO-lm-fqe" id="Ptk-CC-aqV"/>
                         <outlet property="dateCreatedLabel" destination="g0F-3b-rIU" id="ZkO-nd-d1f"/>
+                        <outlet property="followButton" destination="ahs-PL-l5l" id="SRF-tp-zzp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hbj-lE-eCv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -283,14 +287,14 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gcu-c5-cWM">
+                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gcu-c5-cWM" customClass="FollowButton" customModule="conduit" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="245" height="0.0"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="filled" title="Follow" cornerStyle="capsule">
                                                     <fontDescription key="titleFontDescription" name="Heebo-Regular" family="Heebo" pointSize="15"/>
                                                 </buttonConfiguration>
                                                 <connections>
-                                                    <action selector="didTapFollowButton" destination="9zu-kX-soq" eventType="touchUpOutside" id="0nk-we-yHG"/>
+                                                    <action selector="didTapFollowButton" destination="9zu-kX-soq" eventType="touchUpInside" id="x5O-zJ-ZWu"/>
                                                 </connections>
                                             </button>
                                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zkP-A2-272">
@@ -528,6 +532,12 @@
         </designable>
         <designable name="WU3-xo-o0P">
             <size key="intrinsicContentSize" width="19.666666666666664" height="20.333333333333332"/>
+        </designable>
+        <designable name="ahs-PL-l5l">
+            <size key="intrinsicContentSize" width="55.333333333333336" height="21.666666666666668"/>
+        </designable>
+        <designable name="gcu-c5-cWM">
+            <size key="intrinsicContentSize" width="68" height="36.333333333333336"/>
         </designable>
     </designables>
     <resources>

@@ -59,6 +59,8 @@
 		0893EA932837E52A00C4BF4A /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0893EA922837E52A00C4BF4A /* FeedView.swift */; };
 		0893EA9928380E8800C4BF4A /* CircularAvatarImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0893EA9828380E8800C4BF4A /* CircularAvatarImageView.swift */; };
 		0893EAAF283AE66A00C4BF4A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0893EAAE283AE66A00C4BF4A /* ProfileViewController.swift */; };
+		08A143C228469B7900E3B19A /* FollowButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A143C128469B7900E3B19A /* FollowButton.swift */; };
+		08A143C428469BB200E3B19A /* FollowButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08A143C328469BB200E3B19A /* FollowButton.xib */; };
 		08EB0B1C283E943C008E976F /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EB0B1B283E943C008E976F /* ProfileModel.swift */; };
 		08EB0B1F283EA0D9008E976F /* JSONInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EB0B1E283EA0D9008E976F /* JSONInteractor.swift */; };
 		08EB0B21283EAC1E008E976F /* HTTPService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EB0B20283EAC1E008E976F /* HTTPService.swift */; };
@@ -139,6 +141,8 @@
 		0893EA922837E52A00C4BF4A /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
 		0893EA9828380E8800C4BF4A /* CircularAvatarImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularAvatarImageView.swift; sourceTree = "<group>"; };
 		0893EAAE283AE66A00C4BF4A /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		08A143C128469B7900E3B19A /* FollowButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowButton.swift; sourceTree = "<group>"; };
+		08A143C328469BB200E3B19A /* FollowButton.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FollowButton.xib; sourceTree = "<group>"; };
 		08EB0B1B283E943C008E976F /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		08EB0B1E283EA0D9008E976F /* JSONInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONInteractor.swift; sourceTree = "<group>"; };
 		08EB0B20283EAC1E008E976F /* HTTPService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPService.swift; sourceTree = "<group>"; };
@@ -190,6 +194,8 @@
 				084E34222840F42A006F78D5 /* CachedImageView.swift */,
 				081EFAA328423A07004CAB1D /* ErrorIndicatorTextField.swift */,
 				081EFAA528423A1E004CAB1D /* ErrorIndicatorTextField.xib */,
+				08A143C128469B7900E3B19A /* FollowButton.swift */,
+				08A143C328469BB200E3B19A /* FollowButton.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -544,6 +550,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				08A143C428469BB200E3B19A /* FollowButton.xib in Resources */,
 				0834845628355E0000296543 /* Heebo.ttf in Resources */,
 				0834845C2835776700296543 /* TagCollectionViewCell.xib in Resources */,
 				0840F8A1283436B5009210E5 /* LaunchScreen.storyboard in Resources */,
@@ -590,6 +597,7 @@
 				0834846028357E0A00296543 /* FeedViewController.swift in Sources */,
 				0840F8CF28344016009210E5 /* Article.swift in Sources */,
 				0893EAAF283AE66A00C4BF4A /* ProfileViewController.swift in Sources */,
+				08A143C228469B7900E3B19A /* FollowButton.swift in Sources */,
 				08671A09283E544D00B52A7E /* ConduitAPI.swift in Sources */,
 				086E3CC82845EB1400DDC77B /* RemoteAuthInteractor.swift in Sources */,
 				0886BCFE2841A6E5006D20A6 /* AuthPresenter.swift in Sources */,

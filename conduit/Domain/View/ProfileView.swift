@@ -7,6 +7,8 @@
 
 @MainActor protocol ProfileView: AnyObject {
     func profilePresenter(didUpdateStateOf data: ProfileViewData)
+    func profilePresenter(didUpdateFollowState state: TaskState)
+    func profilePresenter(didUpdateUnfollowState state: TaskState)
     func profilePresenterRequiresAuth()
 }
 

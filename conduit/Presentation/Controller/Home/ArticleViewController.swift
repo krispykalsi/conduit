@@ -13,6 +13,7 @@ class ArticleViewController: UIViewController {
     @IBOutlet weak var authorImageView: CircularAvatarImageView!
     @IBOutlet weak var articleTitleLabel: UILabel!
     @IBOutlet weak var articleBodyTextView: UITextView!
+    @IBOutlet weak var followButton: FollowButton!
 
     var article: Article!
     
@@ -30,6 +31,11 @@ class ArticleViewController: UIViewController {
                                                               timeStyle: .short)
         articleTitleLabel.text = article.title
         articleBodyTextView.text = article.body
+        if article.author.following {
+            followButton.changeTo(.unfollow)
+        } else {
+            followButton.changeTo(.follow)
+        }
     }
     
     @IBAction func onProfileTapped(_ sender: UITapGestureRecognizer) {
