@@ -6,14 +6,14 @@
 //
 
 class AuthModel {
-    internal init(remoteAuthInteractor: RemoteAuthInteractor) {
-        self.remoteAuthInteractor = remoteAuthInteractor
+    internal init(userRepository: IUserRepository) {
+        self.userRepository = userRepository
     }
     
-    private let remoteAuthInteractor: RemoteAuthInteractor
+    private let userRepository: IUserRepository
     weak var authView: AuthView?
     
-    static let shared = AuthModel(remoteAuthInteractor: ConduitAPI.shared)
+    static let shared = AuthModel(userRepository: ConduitAPI.shared)
     
     private var isUsernameValid = false
     private var isEmailValid = false
@@ -93,7 +93,7 @@ extension AuthModel: AuthPresenter {
         Task {
             do {
                 let params = LoginViaEmailParams(email: email, password: password)
-                _ = try await remoteAuthInteractor.login(withEmail: params)
+                _ = try await userRepository.login(withEmail: params)
                 authView?.authPresenter(didUpdateLoginOrRegisterState: .success)
             } catch let err as APIError {
                 handle(apiError: err)
@@ -112,7 +112,7 @@ extension AuthModel: AuthPresenter {
             Task {
                 do {
                     let params = RegisterViaEmailParams(username: username, email: email, password: password)
-                    _ = try await remoteAuthInteractor.register(withEmail: params)
+                    _ = try await userRepository.register(withEmail: params)
                     authView?.authPresenter(didUpdateLoginOrRegisterState: .success)
                 } catch let err as APIError {
                     handle(apiError: err)

@@ -1,11 +1,11 @@
 //
-//  ArticleInteractor.swift
+//  IArticleRepository.swift
 //  conduit
 //
 //  Created by Ikroop Singh Kalsi on 18/05/22.
 //
 
-protocol ArticleInteractor {
+protocol IArticleRepository {
     // MARK: FEED
     func fetchUserFeed(with params: UserFeedParams) async throws -> [Article]
     func fetchGlobalFeed(with params: GlobalFeedParams) async throws -> [Article]
@@ -30,12 +30,12 @@ protocol ArticleInteractor {
 }
 
 // MARK: -
-struct UserFeedParams: Codable {
+struct UserFeedParams: Encodable {
     var limit: Int?
     var offset: Int?
 }
 
-struct GlobalFeedParams: Codable {
+struct GlobalFeedParams: Encodable {
     var limit: Int?
     var offset: Int?
     var author: String?
@@ -43,14 +43,14 @@ struct GlobalFeedParams: Codable {
     var tag: String?
 }
 
-struct CreateArticleParams: Codable {
+struct CreateArticleParams: Encodable {
     var title: String
     var description: String
     var body: String
     var tagList: [String]?
 }
 
-struct UpdateArticleParams: Codable {
+struct UpdateArticleParams: Encodable {
     var title: String?
     var description: String?
     var body: String?

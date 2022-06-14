@@ -6,17 +6,17 @@
 //
 
 class ProfileModel {
-    internal init(localAuthInteractor: LocalAuthInteractor,
-                  profileInteractor: ProfileInteractor,
-                  articleInteractor: ArticleInteractor) {
-        self.localAuthInteractor = localAuthInteractor
-        self.profileInteractor = profileInteractor
-        self.articleInteractor = articleInteractor
+    internal init(localAuthService: ILocalAuthService,
+                  profileRepository: IProfileRepository,
+                  articleRepository: IArticleRepository) {
+        self.localAuthService = localAuthService
+        self.profileRepository = profileRepository
+        self.articleRepository = articleRepository
     }
     
-    private let localAuthInteractor: LocalAuthInteractor
-    private let profileInteractor: ProfileInteractor
-    private let articleInteractor: ArticleInteractor
+    private let localAuthService: ILocalAuthService
+    private let profileRepository: IProfileRepository
+    private let articleRepository: IArticleRepository
     
     private var profile: Profile?
     private var userArticles: [Article]?
@@ -24,9 +24,9 @@ class ProfileModel {
     
     weak var profileView: ProfileView?
     
-    static let shared = ProfileModel(localAuthInteractor: LocalAuthService.shared,
-                                     profileInteractor: ConduitAPI.shared,
-                                     articleInteractor: ConduitAPI.shared)
+    static let shared = ProfileModel(localAuthService: LocalAuthService.shared,
+                                     profileRepository: ConduitAPI.shared,
+                                     articleRepository: ConduitAPI.shared)
 }
 
 extension ProfileModel: ProfilePresenter {
@@ -34,7 +34,7 @@ extension ProfileModel: ProfilePresenter {
         profileView?.profilePresenter(didUpdateFollowState: .inProgress)
         Task {
             do {
-                _ = try await profileInteractor.followProfile(with: username)
+                _ = try await profileRepository.followProfile(with: username)
                 profileView?.profilePresenter(didUpdateFollowState: .success)
             } catch {
                 let msg = error.localizedDescription
@@ -47,7 +47,7 @@ extension ProfileModel: ProfilePresenter {
         profileView?.profilePresenter(didUpdateUnfollowState: .inProgress)
         Task {
             do {
-                _ = try await profileInteractor.unfollowProfile(with: username)
+                _ = try await profileRepository.unfollowProfile(with: username)
                 profileView?.profilePresenter(didUpdateUnfollowState: .success)
             } catch {
                 let msg = error.localizedDescription
@@ -57,7 +57,7 @@ extension ProfileModel: ProfilePresenter {
     }
     
     func fetchCurrentUserProfileData() {
-        if let username = localAuthInteractor.username {
+        if let username = localAuthService.username {
             fetchProfileData(for: username)
             fetchArticleData(for: username)
         } else {
@@ -69,7 +69,7 @@ extension ProfileModel: ProfilePresenter {
         Task {
             profileView?.profilePresenter(didUpdateStateOf: .profile(.loading))
             do {
-                let profile = try await profileInteractor.fetchProfile(with: username)
+                let profile = try await profileRepository.fetchProfile(with: username)
                 profileView?.profilePresenter(didUpdateStateOf: .profile(.loaded(profile)))
             } catch {
                 profileView?.profilePresenter(didUpdateStateOf: .profile(.error(error)))
@@ -82,8 +82,8 @@ extension ProfileModel: ProfilePresenter {
         profileView?.profilePresenter(didUpdateStateOf: .favoriteArticles(.loading))
         
         Task {
-            async let userArticlesAsync = try articleInteractor.fetchGlobalFeed(with: GlobalFeedParams(author: username))
-            async let favArticlesAsync = try articleInteractor.fetchGlobalFeed(with: GlobalFeedParams(favorited: username))
+            async let userArticlesAsync = try articleRepository.fetchGlobalFeed(with: GlobalFeedParams(author: username))
+            async let favArticlesAsync = try articleRepository.fetchGlobalFeed(with: GlobalFeedParams(favorited: username))
             
             do {
                 let userArticles = try await userArticlesAsync
@@ -102,7 +102,7 @@ extension ProfileModel: ProfilePresenter {
     }
     
     func logOut() {
-        localAuthInteractor.clearAuthDetailsFromCache()
+        localAuthService.clearAuthDetailsFromCache()
         profileView?.profilePresenterRequiresAuth()
     }
 }

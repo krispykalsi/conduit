@@ -7,7 +7,17 @@
 
 import Foundation
 
-class LocalAuthService: LocalAuthInteractor {
+
+protocol ILocalAuthService {
+    var username: String? { get }
+    var authToken: String? { get }
+    var isUserLoggedIn: Bool { get }
+    
+    func cacheAuthDetails(of user: User)
+    func clearAuthDetailsFromCache()
+}
+
+class LocalAuthService: ILocalAuthService {
     private let KEY_USERNAME = "username"
     private let KEY_AUTH_TOKEN = "authToken"
     
@@ -23,7 +33,7 @@ class LocalAuthService: LocalAuthInteractor {
         }
     }
     
-    var isLoggedIn: Bool {
+    var isUserLoggedIn: Bool {
         authToken != nil
     }
     
@@ -36,7 +46,7 @@ class LocalAuthService: LocalAuthInteractor {
         authToken = userDefaults.string(forKey: KEY_AUTH_TOKEN)
     }
     
-    static let shared: LocalAuthInteractor = LocalAuthService(userDefaults: .standard)
+    static let shared: ILocalAuthService = LocalAuthService(userDefaults: .standard)
     
     func cacheAuthDetails(of user: User) {
         authToken = user.token

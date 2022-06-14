@@ -6,21 +6,22 @@
 //
 
 import UIKit
+import Combine
 
 class FeedViewController: UIViewController {
     @IBOutlet weak var tagCollectionView: UICollectionView!
     @IBOutlet weak var articleTableView: UITableView!
     
-    private var presenter = HomeModel.shared
+    private var presenter = HomePresenter.shared
     
-    private var tags: [String] = []
-    private var articles: [Article] = []
+    private var viewModelSubscriptions = Set<AnyCancellable>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTagCollectionView()
         setupArticleTableView()
-        setupHomePresenter()
+        subscribeToFeedViewModel()
+        presenter.fetchFeedData()
     }
     
     private func setupTagCollectionView() {
@@ -39,16 +40,26 @@ class FeedViewController: UIViewController {
                                   forCellReuseIdentifier: ArticleTableViewCell.reuseIdentifier)
     }
     
-    private func setupHomePresenter() {
-        presenter.feedView = self
-        presenter.loadGlobalFeed()
+    private func subscribeToFeedViewModel() {
+        presenter.feedViewModel.$tags.receive(on: DispatchQueue.main).sink { [weak self] in
+            self?.tagCollectionView.reloadData()
+        }.store(in: &viewModelSubscriptions)
+        
+        presenter.feedViewModel.$articles.receive(on: DispatchQueue.main).sink { [weak self] in
+            self?.articleTableView.reloadData()
+        }.store(in: &viewModelSubscriptions)
     }
 }
 
 extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return tags.count
+        switch(presenter.feedViewModel.tags) {
+        case .loaded(let tags):
+            return tags.count
+        default:
+            return 1
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -56,63 +67,61 @@ extension FeedViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let chip = collectionView.dequeueReusableCell(withReuseIdentifier: TagCollectionViewCell.reuseIdentifier,
-                                                      for: indexPath) as! TagCollectionViewCell
-        chip.label.text = tags[indexPath.row]
+        let chip = collectionView.dequeueReusableCell(withReuseIdentifier: TagCollectionViewCell.reuseIdentifier, for: indexPath) as! TagCollectionViewCell
+        switch(presenter.feedViewModel.tags) {
+        case .loaded(let tags):
+            chip.label.text = tags[indexPath.row]
+        case .loading:
+            chip.label.text = "Loading..."
+        case .error(_):
+            chip.label.text = "Failed to load tags"
+            chip.label.textColor = .red
+        }
         return chip
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let labelWidth = tags[indexPath.row].size(withAttributes: [.font: TagCollectionViewCell.labelFont]).width
+        var text: String
+        switch(presenter.feedViewModel.tags) {
+        case .loaded(let tags):
+            text = tags[indexPath.row]
+        case .loading:
+            text = "Loading..."
+        case .error(_):
+            text = "Failed to load tags"
+        }
+        let labelWidth = text.size(withAttributes: [.font: TagCollectionViewCell.labelFont]).width
         return CGSize(width: labelWidth + 40, height: 40)
-    }
-}
-
-extension FeedViewController: FeedView {
-    func feedPresenter(didUpdateStateOf data: FeedViewData) {
-        switch(data) {
-        case .tags(let s):
-            handleTagsDataState(s)
-        case .articles(let s):
-            handleArticlesDataState(s)
-        }
-    }
-    
-    private func handleTagsDataState(_ state: DataState<[String]>) {
-        switch(state) {
-        case .error(_): debugPrint("couldn't load tags")
-        case .loaded(let newTags):
-            tags = newTags
-            self.tagCollectionView.reloadData()
-        case .loading: debugPrint("loading tags")
-        }
-    }
-    
-    private func handleArticlesDataState(_ state: DataState<[Article]>) {
-        switch(state) {
-        case .error(_): debugPrint("couldn't load articles")
-        case .loaded(let newArticles):
-            articles = newArticles
-            self.articleTableView.reloadData()
-        case .loading: debugPrint("loading articles")
-        }
     }
 }
 
 extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return articles.count
+        switch(presenter.feedViewModel.articles) {
+        case .loaded(let articles):
+            return articles.count
+        default:
+            return 1
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ArticleTableViewCell.reuseIdentifier,
-                                                 for: indexPath) as! ArticleTableViewCell
-        let article = articles[indexPath.row]
-        cell.populateValues(from: article)
+        let cell = tableView.dequeueReusableCell(withIdentifier: ArticleTableViewCell.reuseIdentifier, for: indexPath) as! ArticleTableViewCell
+        switch(presenter.feedViewModel.articles) {
+        case .loaded(let articles):
+            let article = articles[indexPath.row]
+            cell.populateValues(from: article)
+        case .loading:
+            cell.titleLabel.text = "Loading..."
+        case .error(_):
+            cell.titleLabel.text = "Failed to load articles"
+        }
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        Router.shared.navigate(from: self, to: .articleView(articles[indexPath.row]))
+        if case let .loaded(articles) = presenter.feedViewModel.articles {
+            Router.shared.navigate(from: self, to: .articleView(articles[indexPath.row]))
+        }
     }
 }

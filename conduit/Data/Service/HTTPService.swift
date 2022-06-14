@@ -7,19 +7,24 @@
 
 import Foundation
 
-class HTTPService: NSObject, HTTPInteractor {
-    init(localAuthInteractor: LocalAuthInteractor) {
+
+protocol IHTTPService {
+    func send(_ request: inout URLRequest) async throws -> (Data, URLResponse)
+}
+
+class HTTPService: NSObject, IHTTPService {
+    init(localAuthService: ILocalAuthService) {
         self.urlSession = URLSession(configuration: .default)
-        self.localAuthInteractor = localAuthInteractor
+        self.localAuthService = localAuthService
     }
     
     private let urlSession: URLSession
-    private let localAuthInteractor: LocalAuthInteractor
+    private let localAuthService: ILocalAuthService
     
-    static let shared: HTTPInteractor = HTTPService(localAuthInteractor: LocalAuthService.shared)
+    static let shared: IHTTPService = HTTPService(localAuthService: LocalAuthService.shared)
     
     private func authenticate(_ req: inout URLRequest) {
-        if let token = localAuthInteractor.authToken {
+        if let token = localAuthService.authToken {
             req.addValue("Token \(token)", forHTTPHeaderField: "Authorization")
         }
     }
